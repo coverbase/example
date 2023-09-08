@@ -6,8 +6,7 @@
         "packages/*"
     ],
     "scripts": {
-        "dev": "npm run dev -w apps",
-        "build": "npm run build -w packages && npm run build -w apps"
+        "build:packages": "npm run build -w packages"
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20230904.0",
