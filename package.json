@@ -1,0 +1,8 @@
+{
+    "name": "coverbase",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ]
+}
