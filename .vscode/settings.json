@@ -2,5 +2,5 @@
     "unocss.root": ".",
     "conventionalCommits.gitmoji": false,
     "conventionalCommits.promptBody": false,
-    "conventionalCommits.scopes": ["landing-page", "console", "ui"]
+    "conventionalCommits.scopes": ["landing-page", "console", "ui", "identity"]
 }

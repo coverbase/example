@@ -1,0 +1,15 @@
+{
+    "name": "@coverbase/identity",
+    "private": true,
+    "scripts": {
+        "build": "",
+        "dev": "wrangler dev",
+        "deploy": "wrangler deploy --env production"
+    },
+    "devDependencies": {
+        "wrangler": "^3.6.0"
+    },
+    "dependencies": {
+        "h3": "^1.8.1"
+    }
+}
