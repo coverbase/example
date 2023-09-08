@@ -1,6 +1,6 @@
 <template>
     <div class="rounded flex flex-col items-center gap-8 text-center bg-slate-900 p-8 text-white">
-        <h1 class="font-bold text-5xl">Headline</h1>
+        <h1 class="font-bold text-5xl">Landing Page</h1>
 
         <p class="text-slate-400 max-w-xl text-lg">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
