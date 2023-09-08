@@ -6,7 +6,7 @@ on:
             - "main"
         paths:
             - "apps/landing-page/**"
-            - "packages/ui/**"
+            - "packages/**"
 
 env:
     CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -27,6 +27,16 @@ jobs:
             - run: npm ci
 
             - run: npm run build
+              working-directory: ./packages/ui
+
+            - run: npm run build
+              working-directory: ./packages/schema
+
+            - run: npm run build
+              working-directory: ./packages/jwt
+
+            - run: npm run build
+              working-directory: ./packages/http
 
             - run: npm run build
               working-directory: ./apps/landing-page

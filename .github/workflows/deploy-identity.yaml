@@ -6,9 +6,7 @@ on:
             - "main"
         paths:
             - "apps/identity/**"
-            - "packages/schema/**"
-            - "packages/http/**"
-            - "packages/jwt/**"
+            - "packages/**"
 
 env:
     CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -29,6 +27,16 @@ jobs:
             - run: npm ci
 
             - run: npm run build
+              working-directory: ./packages/ui
+
+            - run: npm run build
+              working-directory: ./packages/schema
+
+            - run: npm run build
+              working-directory: ./packages/jwt
+
+            - run: npm run build
+              working-directory: ./packages/http
 
             - run: npm run deploy
               working-directory: ./apps/identity
