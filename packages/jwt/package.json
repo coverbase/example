@@ -1,7 +1,6 @@
 {
     "name": "@coverbase/jwt",
     "private": true,
-    "repository": "coverbase/coverbase",
     "license": "MIT",
     "type": "module",
     "exports": {
