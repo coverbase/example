@@ -1,5 +1,5 @@
 {
     "conventionalCommits.gitmoji": false,
     "conventionalCommits.promptBody": false,
-    "conventionalCommits.scopes": ["ui"]
+    "conventionalCommits.scopes": ["landing-page", "console", "ui"]
 }
