@@ -1,0 +1,23 @@
+{
+    "name": "@coverbase/console",
+    "private": true,
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "deploy": "wrangler pages deploy --project-name=console ./dist"
+    },
+    "devDependencies": {
+        "@unocss/nuxt": "^0.55.7",
+        "@unocss/reset": "^0.55.7",
+        "nuxt": "^3.7.1",
+        "wrangler": "^3.7.0"
+    },
+    "dependencies": {
+        "@coverbase/ui": "*",
+        "@tabler/icons-vue": "^2.33.0",
+        "@vueuse/core": "^10.4.1"
+    }
+}
