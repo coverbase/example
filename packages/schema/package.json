@@ -1,0 +1,28 @@
+{
+    "name": "@coverbase/schema",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.cjs",
+            "import": "./dist/index.mjs"
+        }
+    },
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.cjs",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "unbuild"
+    },
+    "devDependencies": {
+        "unbuild": "^2.0.0"
+    },
+    "dependencies": {
+        "drizzle-orm": "^0.28.6",
+        "valibot": "^0.13.1"
+    }
+}

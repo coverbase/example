@@ -1,0 +1,5 @@
+export enum ErrorCode {
+    EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS",
+    NOT_FOUND = "NOT_FOUND",
+    INVALID = "INVALID",
+}

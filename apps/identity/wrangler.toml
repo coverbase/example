@@ -1,5 +1,5 @@
 name = "identity"
-main = "index.ts"
+main = "./src/index.ts"
 compatibility_date = "2023-08-01"
 minify = true
 workers_dev = false

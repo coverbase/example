@@ -3,12 +3,21 @@
     "private": true,
     "scripts": {
         "dev": "wrangler dev",
-        "deploy": "wrangler deploy --env production"
+        "deploy": "wrangler deploy --env production",
+        "generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
+        "push": "drizzle-kit push:pg --config=drizzle.config.ts"
     },
     "devDependencies": {
+        "drizzle-kit": "^0.19.13",
         "wrangler": "^3.6.0"
     },
     "dependencies": {
-        "h3": "^1.8.1"
+        "@coverbase/http": "*",
+        "@coverbase/jwt": "*",
+        "@coverbase/schema": "*",
+        "@neondatabase/serverless": "^0.6.0",
+        "drizzle-orm": "^0.28.6",
+        "h3": "^1.8.1",
+        "nanoid": "^4.0.2"
     }
 }

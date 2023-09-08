@@ -1,0 +1,106 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "993ea207-79a2-445b-b9a2-8930ba012024",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "Accounts": {
+      "name": "Accounts",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "FirstName": {
+          "name": "FirstName",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LastName": {
+          "name": "LastName",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EmailAddress": {
+          "name": "EmailAddress",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PhoneNumber": {
+          "name": "PhoneNumber",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Session": {
+      "name": "Session",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Token": {
+          "name": "Token",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AccountId": {
+          "name": "AccountId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Session_AccountId_Accounts_Id_fk": {
+          "name": "Session_AccountId_Accounts_Id_fk",
+          "tableFrom": "Session",
+          "tableTo": "Accounts",
+          "columnsFrom": [
+            "AccountId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

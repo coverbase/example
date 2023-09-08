@@ -16,6 +16,7 @@
         "wrangler": "^3.7.0"
     },
     "dependencies": {
+        "@coverbase/schema": "*",
         "@coverbase/ui": "*",
         "@tabler/icons-vue": "^2.33.0",
         "@vueuse/core": "^10.4.1"

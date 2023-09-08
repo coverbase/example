@@ -6,6 +6,7 @@ on:
             - "main"
         paths:
             - "apps/console/**"
+            - "packages/schema/**"
             - "packages/ui/**"
 
 env:
@@ -26,7 +27,7 @@ jobs:
 
             - run: npm ci
 
-            - run: npm run build:packages
+            - run: npm run build
 
             - run: npm run build
               working-directory: ./apps/console

@@ -19,6 +19,7 @@ logs
 .idea
 
 # Env
+.dev.vars
 .env
 .env.*
 !.env.example
