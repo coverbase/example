@@ -1,8 +1,8 @@
-import { useValidatedBody } from "@coverbase/http";
-import { ErrorCode, accounts, createAccountSchema, updateAccountSchema } from "@coverbase/schema";
+import { ErrorCode, useValidatedBody } from "@coverbase/http";
+import { accounts, createAccountSchema, updateAccountSchema } from "@coverbase/schema";
 import { eq } from "drizzle-orm";
-import { createError, eventHandler, sendError } from "h3";
-import { useAuth } from "../utils/auth";
+import { createError, eventHandler } from "h3";
+import { useAccount } from "../utils/account";
 import { useDatabase } from "../utils/database";
 
 export const createAccount = eventHandler(async (event) => {
@@ -18,13 +18,10 @@ export const createAccount = eventHandler(async (event) => {
     });
 
     if (account) {
-        sendError(
-            event,
-            createError({
-                message: ErrorCode.EMAIL_ALREADY_EXISTS,
-                status: 400,
-            })
-        );
+        throw createError({
+            message: ErrorCode.EMAIL_ALREADY_EXISTS,
+            status: 400,
+        });
     }
 
     const [accountCreate] = await db
@@ -42,7 +39,7 @@ export const createAccount = eventHandler(async (event) => {
 
 export const updateAccount = eventHandler(async (event) => {
     const db = useDatabase();
-    const account = await useAuth(event);
+    const account = await useAccount(event);
 
     const { firstName, lastName, phoneNumber, emailAddress } = await useValidatedBody(
         event,
@@ -64,18 +61,15 @@ export const updateAccount = eventHandler(async (event) => {
         return accountUpdate;
     }
 
-    sendError(
-        event,
-        createError({
-            message: ErrorCode.NOT_FOUND,
-            status: 404,
-        })
-    );
+    throw createError({
+        message: ErrorCode.NOT_FOUND,
+        status: 404,
+    });
 });
 
 export const deleteAccount = eventHandler(async (event) => {
     const db = useDatabase();
-    const account = await useAuth(event);
+    const account = await useAccount(event);
 
     if (account) {
         const [accountDelete] = await db
@@ -86,15 +80,12 @@ export const deleteAccount = eventHandler(async (event) => {
         return accountDelete;
     }
 
-    sendError(
-        event,
-        createError({
-            message: ErrorCode.NOT_FOUND,
-            status: 404,
-        })
-    );
+    throw createError({
+        message: ErrorCode.NOT_FOUND,
+        status: 404,
+    });
 });
 
 export const getAccount = eventHandler(async (event) => {
-    return await useAuth(event);
+    return await useAccount(event);
 });

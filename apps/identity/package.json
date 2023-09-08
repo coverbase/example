@@ -13,7 +13,6 @@
     },
     "dependencies": {
         "@coverbase/http": "*",
-        "@coverbase/jwt": "*",
         "@coverbase/schema": "*",
         "@neondatabase/serverless": "^0.6.0",
         "drizzle-orm": "^0.28.6",

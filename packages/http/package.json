@@ -22,7 +22,8 @@
         "unbuild": "^2.0.0"
     },
     "dependencies": {
-        "h3": "^1.8.1",
-        "valibot": "^0.13.1"
+        "@coverbase/jwt": "*",
+        "valibot": "^0.13.1",
+        "h3": "^1.8.1"
     }
 }

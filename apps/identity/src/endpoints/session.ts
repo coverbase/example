@@ -1,9 +1,9 @@
-import { useValidatedBody } from "@coverbase/http";
+import { ErrorCode, useValidatedBody } from "@coverbase/http";
 import { sign } from "@coverbase/jwt";
-import { ErrorCode, accounts, createSessionSchema, sessions } from "@coverbase/schema";
+import { accounts, createSessionSchema, sessions } from "@coverbase/schema";
 import { eq } from "drizzle-orm";
-import { createError, eventHandler, getQuery, sendError } from "h3";
-import { generateToken } from "../utils/auth";
+import { createError, eventHandler, getQuery } from "h3";
+import { generateToken } from "../utils/account";
 import { useDatabase } from "../utils/database";
 
 export const createSession = eventHandler(async (event) => {
@@ -31,13 +31,10 @@ export const createSession = eventHandler(async (event) => {
         return "Success";
     }
 
-    sendError(
-        event,
-        createError({
-            message: ErrorCode.NOT_FOUND,
-            status: 404,
-        })
-    );
+    throw createError({
+        message: ErrorCode.NOT_FOUND,
+        status: 404,
+    });
 });
 
 export const getSession = eventHandler(async (event) => {
@@ -69,11 +66,8 @@ export const getSession = eventHandler(async (event) => {
         );
     }
 
-    sendError(
-        event,
-        createError({
-            message: ErrorCode.NOT_FOUND,
-            status: 404,
-        })
-    );
+    throw createError({
+        message: ErrorCode.NOT_FOUND,
+        status: 404,
+    });
 });
