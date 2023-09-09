@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "dev": "wrangler dev",
-        "deploy": "wrangler deploy --env production",
+        "deploy": "wrangler deploy",
         "generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
         "push": "drizzle-kit push:pg --config=drizzle.config.ts"
     },
