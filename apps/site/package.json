@@ -1,0 +1,17 @@
+{
+    "name": "@coverbase/site",
+    "private": true,
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "deploy": "wrangler pages deploy --project-name=site ./dist"
+    },
+    "devDependencies": {
+        "nuxt": "^3.7.1",
+        "wrangler": "^3.7.0"
+    },
+    "dependencies": {}
+}
