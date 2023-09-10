@@ -6,7 +6,7 @@ import { useAccount } from "../utils/account";
 import { useDatabase } from "../utils/database";
 
 export const createAccount = eventHandler(async (event) => {
-    const db = useDatabase();
+    const db = useDatabase(event);
 
     const { firstName, lastName, phoneNumber, emailAddress } = await useValidatedBody(
         event,
@@ -38,7 +38,7 @@ export const createAccount = eventHandler(async (event) => {
 });
 
 export const updateAccount = eventHandler(async (event) => {
-    const db = useDatabase();
+    const db = useDatabase(event);
     const account = await useAccount(event);
 
     const { firstName, lastName, phoneNumber, emailAddress } = await useValidatedBody(
@@ -68,7 +68,7 @@ export const updateAccount = eventHandler(async (event) => {
 });
 
 export const deleteAccount = eventHandler(async (event) => {
-    const db = useDatabase();
+    const db = useDatabase(event);
     const account = await useAccount(event);
 
     if (account) {

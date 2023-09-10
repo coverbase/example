@@ -8,7 +8,7 @@ import { useDatabase } from "./database";
 export const generateToken = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 50);
 
 export async function useAccount(event: H3Event): Promise<AccountEntity | undefined> {
-    const db = useDatabase();
+    const db = useDatabase(event);
     const auth = await useAuth(event);
 
     const account = await db.query.accounts.findFirst({

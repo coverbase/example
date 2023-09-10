@@ -1,9 +1,20 @@
-import { createApp, createRouter, toWebHandler } from "h3";
+import { createApp, createRouter, eventHandler, handleCors, toWebHandler } from "h3";
 import { createAccount, deleteAccount, getAccount, updateAccount } from "./endpoints/account";
 import { createSession, getSession } from "./endpoints/session";
 
 const app = createApp();
 const router = createRouter();
+
+router.use(
+    "*",
+    eventHandler((event) =>
+        handleCors(event, {
+            allowHeaders: "*",
+            methods: "*",
+            origin: "*",
+        })
+    )
+);
 
 router.post("/accounts", createAccount);
 router.put("/accounts", updateAccount);

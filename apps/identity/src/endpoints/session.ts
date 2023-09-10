@@ -1,13 +1,14 @@
-import { ErrorCode, useValidatedBody } from "@coverbase/http";
+import { ErrorCode, env, useValidatedBody } from "@coverbase/http";
 import { sign } from "@coverbase/jwt";
 import { accounts, createSessionSchema, sessions } from "@coverbase/schema";
 import { eq } from "drizzle-orm";
 import { createError, eventHandler, getQuery } from "h3";
 import { generateToken } from "../utils/account";
 import { useDatabase } from "../utils/database";
+import { sendMail } from "../utils/mail";
 
 export const createSession = eventHandler(async (event) => {
-    const db = useDatabase();
+    const db = useDatabase(event);
 
     const { emailAddress } = await useValidatedBody(event, createSessionSchema);
 
@@ -26,7 +27,15 @@ export const createSession = eventHandler(async (event) => {
             })
             .returning();
 
-        // Send Email
+        const params = new URLSearchParams({
+            email: account.emailAddress,
+            token: sessionCreate.token,
+        });
+
+        const redirect = "http://127.0.0.1:3000/#/session" + "?" + params.toString();
+        const html = `<a href="${redirect}">${redirect}</a>`;
+
+        await sendMail(event, account.emailAddress, "Authentication Code", html);
 
         return "Success";
     }
@@ -38,7 +47,8 @@ export const createSession = eventHandler(async (event) => {
 });
 
 export const getSession = eventHandler(async (event) => {
-    const db = useDatabase();
+    const db = useDatabase(event);
+    const { SECRET } = env(event);
 
     const { email, token } = getQuery<{
         email: string;
@@ -62,7 +72,7 @@ export const getSession = eventHandler(async (event) => {
                 lastName: session.account.lastName,
                 email: session.account.emailAddress,
             },
-            process.env.SECRET!
+            SECRET
         );
     }
 
