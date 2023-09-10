@@ -1,37 +1,18 @@
-import { createApp, createRouter, eventHandler, handleCors, toWebHandler } from "h3";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { createAccount, deleteAccount, getAccount, updateAccount } from "./endpoints/account";
 import { createSession, getSession } from "./endpoints/session";
 
-const app = createApp();
-const router = createRouter();
+const app = new Hono();
 
-router.use(
-    "*",
-    eventHandler((event) =>
-        handleCors(event, {
-            allowHeaders: "*",
-            methods: "*",
-            origin: "*",
-        })
-    )
-);
+app.use("*", cors());
 
-router.post("/accounts", createAccount);
-router.put("/accounts", updateAccount);
-router.delete("/accounts", deleteAccount);
-router.get("/accounts", getAccount);
+app.post("/accounts", createAccount);
+app.put("/accounts", updateAccount);
+app.delete("/accounts", deleteAccount);
+app.get("/accounts", getAccount);
 
-router.post("/sessions", createSession);
-router.get("/sessions", getSession);
+app.post("/sessions", createSession);
+app.get("/sessions/:sessionId", getSession);
 
-app.use(router);
-
-const webHandler = toWebHandler(app);
-
-export default {
-    async fetch(request: Request, env: any, ctx: any): Promise<Response> {
-        return webHandler(request, {
-            cloudflare: { env, ctx },
-        });
-    },
-};
+export default app;

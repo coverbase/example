@@ -1,8 +1,8 @@
-import { env } from "@coverbase/http";
-import { H3Event } from "h3";
+import { Context } from "hono";
+import { env } from "hono/adapter";
 
-export async function sendMail(event: H3Event, to: string, subject: string, html: string) {
-    const { RESEND_KEY } = env(event);
+export async function sendMail(context: Context, to: string, subject: string, html: string) {
+    const { RESEND_KEY } = env(context);
 
     await fetch("https://api.resend.com/emails", {
         method: "POST",

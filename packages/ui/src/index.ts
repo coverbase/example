@@ -19,5 +19,4 @@ export { default as Sheet } from "./components/sheet.vue";
 export { default as Strong } from "./components/strong.vue";
 export { default as Subheading } from "./components/subheading.vue";
 
-import "uno.css";
 import "./style.css";

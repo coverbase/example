@@ -1,15 +1,15 @@
-import { ErrorCode, useAuth } from "@coverbase/http";
+import { ErrorCode, createError, useAuth } from "@coverbase/http";
 import { AccountEntity, accounts } from "@coverbase/schema";
 import { eq } from "drizzle-orm";
-import { H3Event, createError } from "h3";
+import { Context } from "hono";
 import { customAlphabet } from "nanoid";
 import { useDatabase } from "./database";
 
 export const generateToken = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 50);
 
-export async function useAccount(event: H3Event): Promise<AccountEntity | undefined> {
-    const db = useDatabase(event);
-    const auth = await useAuth(event);
+export async function useAccount(context: Context): Promise<AccountEntity | undefined> {
+    const db = useDatabase(context);
+    const auth = await useAuth(context);
 
     const account = await db.query.accounts.findFirst({
         where: eq(accounts.id, auth.sub ?? ""),
@@ -20,7 +20,6 @@ export async function useAccount(event: H3Event): Promise<AccountEntity | undefi
     }
 
     throw createError({
-        message: ErrorCode.NOT_FOUND,
-        status: 404,
+        code: ErrorCode.NOT_FOUND,
     });
 }

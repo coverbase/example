@@ -2,8 +2,14 @@
 
 <script setup lang="ts">
 definePageMeta({
-    middleware: ["auth"],
+    layout: "auth",
 });
 
 const accessToken = useAccessToken();
+
+const data = await getSession();
+
+if (data) {
+    accessToken.value = data;
+}
 </script>

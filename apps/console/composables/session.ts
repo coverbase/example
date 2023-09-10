@@ -1,7 +1,6 @@
 import { CreateSessionRequest, SessionEntity } from "@coverbase/schema";
-import { useLocalStorage } from "@vueuse/core";
 
-export const useAccessToken = () => useLocalStorage<string>("Token", () => "");
+export const useAccessToken = () => useLocalStorage<string>("AccessToken", "");
 export const useSessionLoading = () => useState<boolean>("Session-Loading", () => false);
 
 export async function createSession(form: CreateSessionRequest) {
@@ -21,35 +20,19 @@ export async function createSession(form: CreateSessionRequest) {
     }
 }
 
-export function isAuthenticated() {
-    const token = useAccessToken();
-
-    return token.value !== "";
-}
-
 export function deleteSession() {
-    const token = useAccessToken();
+    const accessToken = useAccessToken();
 
-    token.value = "";
+    accessToken.value = "";
 
     navigateTo("/auth/sign-in");
 }
 
-export async function getSession(email: string, value: string) {
-    const token = useAccessToken();
+export function getSession() {
+    const route = useRoute();
 
-    const { data } = await useFetch<string>("/sessions", {
+    return $fetch<string>(`/sessions/${route.params.sessionId}`, {
         method: "GET",
-        query: {
-            email: email,
-            token: value,
-        },
         onRequest: requestInterceptorText,
     });
-
-    if (data.value) {
-        token.value = data.value;
-    }
-
-    navigateTo("/");
 }

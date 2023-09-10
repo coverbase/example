@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-    modules: ["@unocss/nuxt"],
+    modules: ["@unocss/nuxt", "@vueuse/nuxt"],
 
     css: ["@unocss/reset/tailwind.css", "@coverbase/ui/style"],
 
@@ -13,6 +13,18 @@ export default defineNuxtConfig({
             "text-slate-900",
             "text-base",
         ],
+    },
+
+    build: {
+        transpile: ["@coverbase/ui"],
+    },
+
+    vite: {
+        vue: {
+            script: {
+                defineModel: true,
+            },
+        },
     },
 
     app: {

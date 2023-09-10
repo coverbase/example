@@ -7,7 +7,7 @@
                 <EmailInput required v-model="form.emailAddress" />
             </Label>
 
-            <Button type="submit">
+            <Button type="submit" :loading="sessionLoading">
                 <span class="px-2"> Continue </span>
             </Button>
         </Card>
@@ -21,6 +21,11 @@ import { NuxtLink } from "#components";
 import { CreateSessionRequest } from "@coverbase/schema";
 import { Button, Card, EmailInput, Heading, Label, Link } from "@coverbase/ui";
 
+definePageMeta({
+    layout: "auth",
+});
+
+const sessionLoading = useSessionLoading();
 const form = ref<CreateSessionRequest>({
     emailAddress: "moritz.mueller@coverbase.co",
 });

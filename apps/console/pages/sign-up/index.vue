@@ -2,42 +2,38 @@
     <div class="max-w-lg mx-auto flex flex-col gap-4">
         <Heading class="my-8 text-center"> Sign up to Coverbase </Heading>
 
-        <Card as="form" @submit.prevent="handleSubmit">
-            <div class="grid grid-cols-2 gap-2">
-                <Label text="First name">
-                    <Input placeholder="John" required v-model="form.firstName" />
-                </Label>
+        <Card>
+            <div class="flex flex-col gap-2">
+                <Button variant="secondary">
+                    <IconBrandGoogle width="20" height="20" />
 
-                <Label text="Last name">
-                    <Input placeholder="Doe" required v-model="form.lastName" />
-                </Label>
+                    Google
+                </Button>
+
+                <Button variant="secondary">
+                    <IconBrandGithub width="20" height="20" />
+
+                    GitHub
+                </Button>
             </div>
 
-            <Label text="Email">
-                <EmailInput required v-model="form.emailAddress" />
-            </Label>
+            <Divider />
 
-            <Button type="submit">
-                <span class="px-2"> Continue </span>
+            <Button variant="secondary" to="/sign-up/email" :as="NuxtLink">
+                <IconMail width="20" height="20" />
+
+                Continue with Email
             </Button>
         </Card>
-
-        <Link class="justify-center" to="/sign-up" :as="NuxtLink"> ← Other Sign up Options </Link>
     </div>
 </template>
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
-import { CreateAccountRequest } from "@coverbase/schema";
-import { Button, Card, EmailInput, Heading, Input, Label, Link } from "@coverbase/ui";
+import { Button, Card, Divider, Heading } from "@coverbase/ui";
+import { IconBrandGithub, IconBrandGoogle, IconMail } from "@tabler/icons-vue";
 
-const form = ref<CreateAccountRequest>({
-    firstName: "Moritz",
-    lastName: "Müller",
-    emailAddress: "moritz.mueller@coverbase.co",
+definePageMeta({
+    layout: "auth",
 });
-
-async function handleSubmit() {
-    await createAccount(form.value);
-}
 </script>

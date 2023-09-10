@@ -1,7 +1,7 @@
 import { FetchContext } from "ofetch";
 
 export async function requestInterceptorJson({ options }: FetchContext) {
-    const token = useAccessToken();
+    const accessToken = useAccessToken();
     const config = useRuntimeConfig();
 
     options.baseURL = config.public.apiUrl;
@@ -10,13 +10,13 @@ export async function requestInterceptorJson({ options }: FetchContext) {
         "Content-Type": "application/json",
     };
 
-    if (token.value) {
-        options.headers["Authorization"] = `Bearer ${token.value}`;
+    if (accessToken.value) {
+        options.headers["Authorization"] = `Bearer ${accessToken.value}`;
     }
 }
 
 export async function requestInterceptorText({ options }: FetchContext) {
-    const token = useAccessToken();
+    const accessToken = useAccessToken();
     const config = useRuntimeConfig();
 
     options.baseURL = config.public.apiUrl;
@@ -25,20 +25,20 @@ export async function requestInterceptorText({ options }: FetchContext) {
         "Content-Type": "text/plain",
     };
 
-    if (token.value) {
-        options.headers["Authorization"] = `Bearer ${token.value}`;
+    if (accessToken.value) {
+        options.headers["Authorization"] = `Bearer ${accessToken.value}`;
     }
 }
 
 export async function requestInterceptorForm({ options }: FetchContext) {
-    const token = useAccessToken();
+    const accessToken = useAccessToken();
     const config = useRuntimeConfig();
 
     options.baseURL = config.public.apiUrl;
 
-    if (token.value) {
+    if (accessToken.value) {
         options.headers = {
-            "Authorization": `Bearer ${token.value}`,
+            "Authorization": `Bearer ${accessToken.value}`,
         };
     }
 }

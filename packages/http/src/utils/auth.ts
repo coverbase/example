@@ -1,12 +1,12 @@
 import { decode, verify } from "@coverbase/jwt";
-import { H3Event, createError } from "h3";
-import { ErrorCode } from "../types";
-import { env } from "./env";
+import { Context } from "hono";
+import { env } from "hono/adapter";
+import { ErrorCode, createError } from "../types";
 
-export async function useAuth(event: H3Event) {
-    const { SECRET } = env(event);
+export async function useAuth(context: Context) {
+    const { SECRET } = env(context);
 
-    const header = event.headers.get("Authorization");
+    const header = context.req.headers.get("Authorization");
 
     if (header) {
         const token = header.replace(/Bearer\s+/i, "");
@@ -20,7 +20,6 @@ export async function useAuth(event: H3Event) {
     }
 
     throw createError({
-        message: ErrorCode.UNAUTHORIZED,
-        status: 401,
+        code: ErrorCode.UNAUTHORIZED,
     });
 }
