@@ -15,7 +15,6 @@
 
 <script setup lang="ts">
 import { RouterLink } from "#vue-router";
-import { Button } from "@coverbase/ui";
 
 useSeoMeta({
     title: "Home - Coverbase",

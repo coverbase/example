@@ -22,5 +22,4 @@
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
-import { Button, Divider } from "@coverbase/ui";
 </script>

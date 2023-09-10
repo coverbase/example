@@ -20,14 +20,6 @@ export async function createSession(form: CreateSessionRequest) {
     }
 }
 
-export function deleteSession() {
-    const accessToken = useAccessToken();
-
-    accessToken.value = "";
-
-    navigateTo("/auth/sign-in");
-}
-
 export function getSession() {
     const route = useRoute();
 

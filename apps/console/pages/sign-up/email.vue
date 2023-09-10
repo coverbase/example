@@ -22,14 +22,15 @@
             </Button>
         </Card>
 
-        <Link class="justify-center" to="/sign-up" :as="NuxtLink"> ← Other Sign up Options </Link>
+        <TextLink class="justify-center" to="/sign-up" :as="NuxtLink">
+            ← Other Sign up Options
+        </TextLink>
     </div>
 </template>
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
 import { CreateAccountRequest } from "@coverbase/schema";
-import { Button, Card, EmailInput, Heading, Input, Label, Link } from "@coverbase/ui";
 
 definePageMeta({
     layout: "auth",

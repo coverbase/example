@@ -17,9 +17,8 @@
     },
     "dependencies": {
         "@coverbase/http": "*",
-        "@coverbase/schema": "*",
         "@coverbase/ui": "*",
-        "@tabler/icons-vue": "^2.33.0",
-        "@vueuse/nuxt": "^10.4.1"
+        "@coverbase/schema": "*",
+        "@tabler/icons-vue": "^2.33.0"
     }
 }

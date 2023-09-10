@@ -1,7 +1,5 @@
 export default defineNuxtConfig({
-    modules: ["@unocss/nuxt", "@vueuse/nuxt"],
-
-    css: ["@unocss/reset/tailwind.css", "@coverbase/ui/style"],
+    modules: ["@coverbase/ui"],
 
     unocss: {
         rules: [["grid-layout-header", { "grid-template-rows": "auto 1fr auto" }]],
@@ -13,10 +11,6 @@ export default defineNuxtConfig({
             "text-slate-900",
             "text-base",
         ],
-    },
-
-    build: {
-        transpile: ["@coverbase/ui"],
     },
 
     vite: {

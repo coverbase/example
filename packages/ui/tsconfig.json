@@ -1,4 +1,17 @@
 {
-    "extends": "@vue/tsconfig/tsconfig.dom.json",
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve",
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "useDefineForClassFields": true,
+        "strict": true,
+        "allowJs": true,
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true
+    }
 }

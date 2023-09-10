@@ -12,14 +12,15 @@
             </Button>
         </Card>
 
-        <Link class="justify-center" to="/sign-in" :as="NuxtLink"> ← Other Sign in Options </Link>
+        <TextLink class="justify-center" to="/sign-in" :as="NuxtLink">
+            ← Other Sign in Options
+        </TextLink>
     </div>
 </template>
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
 import { CreateSessionRequest } from "@coverbase/schema";
-import { Button, Card, EmailInput, Heading, Label, Link } from "@coverbase/ui";
 
 definePageMeta({
     layout: "auth",

@@ -30,7 +30,6 @@
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
-import { Button, Card, Divider, Heading } from "@coverbase/ui";
 import { IconBrandGithub, IconBrandGoogle, IconMail } from "@tabler/icons-vue";
 
 definePageMeta({

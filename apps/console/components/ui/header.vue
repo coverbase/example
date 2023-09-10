@@ -12,5 +12,4 @@
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
-import { Button } from "@coverbase/ui";
 </script>

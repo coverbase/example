@@ -1,10 +1,5 @@
 export default defineNuxtConfig({
-    ssr: false,
-    spaLoadingTemplate: false,
-
-    modules: ["@unocss/nuxt", "@vueuse/nuxt"],
-
-    css: ["@unocss/reset/tailwind.css", "@coverbase/ui/style"],
+    modules: ["@coverbase/ui"],
 
     unocss: {
         rules: [

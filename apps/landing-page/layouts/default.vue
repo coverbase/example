@@ -9,9 +9,9 @@
         </Button>
 
         <nav class="sm:flex gap-4 hidden">
-            <Link :to="navigation.route" :as="RouterLink" v-for="navigation in navigations">
+            <TextLink :to="navigation.route" :as="RouterLink" v-for="navigation in navigations">
                 {{ navigation.name }}
-            </Link>
+            </TextLink>
         </nav>
 
         <Button to="/contact" class="sm:flex hidden" :as="RouterLink">
@@ -76,7 +76,6 @@
 
 <script setup lang="ts">
 import { RouterLink } from "#vue-router";
-import { Button, Card, Divider, Link } from "@coverbase/ui";
 import { IconBrandGithub, IconBrandTwitter, IconMenu2 } from "@tabler/icons-vue";
 import { useMediaQuery } from "@vueuse/core";
 
