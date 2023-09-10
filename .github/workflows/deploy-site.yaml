@@ -23,25 +23,21 @@ jobs:
                   node-version: 18
                   registry-url: "https://registry.npmjs.org"
 
-            - run: |
-                npm ci
-                npm run build
+            - run: npm ci -w packages
+
+            - run: npm run build
               working-directory: ./packages/ui
-  
-            - run: |
-                npm ci
-                npm run build
+
+            - run: npm run build
               working-directory: ./packages/schema
-  
-            - run: |
-                npm ci
-                npm run build
+
+            - run: npm run build
               working-directory: ./packages/jwt
-  
-            - run: |
-                npm ci
-                npm run build
+
+            - run: npm run build
               working-directory: ./packages/http
+
+            - run: npm ci -w apps
 
             - run: |
                 npm run build
