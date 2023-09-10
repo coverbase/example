@@ -6,6 +6,7 @@ on:
             - "main"
         paths:
             - "apps/site/**"
+            - "packages/**"
 
 env:
     CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

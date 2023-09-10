@@ -15,7 +15,7 @@ withDefaults(
 );
 
 const variants: Record<Variant, string> = {
-    "horizontal": "hidden sm:flex h-px",
+    "horizontal": "flex h-px",
     "vertical": "inline-flex w-px my-auto h-6",
 };
 </script>
