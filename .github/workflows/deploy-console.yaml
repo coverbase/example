@@ -25,23 +25,23 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - run: |
-                npm run build
                 npm ci
+                npm run build
               working-directory: ./packages/ui
 
             - run: |
-                npm run build
                 npm ci
+                npm run build
               working-directory: ./packages/schema
 
             - run: |
-                npm run build
                 npm ci
+                npm run build
               working-directory: ./packages/jwt
 
             - run: |
-                npm run build
                 npm ci
+                npm run build
               working-directory: ./packages/http
 
             - run: |

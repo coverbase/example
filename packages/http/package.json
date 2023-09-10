@@ -1,6 +1,7 @@
 {
     "name": "@coverbase/http",
     "private": true,
+    "author": "Moritz Müller",
     "homepage": "https://coverbase.co",
     "repository": "coverbase/coverbase",
     "license": "MIT",
