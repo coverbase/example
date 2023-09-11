@@ -14,4 +14,8 @@ if (data) {
 
     navigateTo("/");
 }
+
+useSeoMeta({
+    title: "Session - Coverbase",
+});
 </script>

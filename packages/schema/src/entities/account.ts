@@ -4,8 +4,8 @@ import { sessions } from "./session";
 
 export const accounts = pgTable("Accounts", {
     id: uuid("Id").primaryKey().defaultRandom(),
-    firstName: varchar("FirstName"),
-    lastName: varchar("LastName"),
+    firstName: varchar("FirstName").notNull(),
+    lastName: varchar("LastName").notNull(),
     emailAddress: varchar("EmailAddress").notNull(),
     phoneNumber: varchar("PhoneNumber"),
     created: timestamp("Created", { withTimezone: true }).notNull().defaultNow(),

@@ -1,9 +1,34 @@
 <template>
     <main class="grid grid-layout-header h-screen overflow-hidden">
-        <UiHeader />
+        <UiHeader>
+            <div class="flex gap-2">
+                <Button variant="text" to="/account" :as="NuxtLink">
+                    <span class="px-2"> {{ data?.firstName }} {{ data?.lastName }} </span>
+                </Button>
 
-        <div class="p-4">
-            <slot />
-        </div>
+                <Divider variant="vertical" />
+
+                <Button variant="text" @click="handleLogout">
+                    <IconLogout width="20" height="20" />
+                </Button>
+            </div>
+        </UiHeader>
+
+        <slot />
     </main>
 </template>
+
+<script setup lang="ts">
+import { NuxtLink } from "#components";
+import { IconLogout } from "@tabler/icons-vue";
+
+const { data } = getAccount();
+
+function handleLogout() {
+    const accessToken = useAccessToken();
+
+    accessToken.value = "";
+
+    navigateTo("/sign-in");
+}
+</script>

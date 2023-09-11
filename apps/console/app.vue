@@ -10,7 +10,6 @@ import { FetchError } from "ofetch";
 onErrorCaptured((error) => {
     if (isFetchError(error)) {
         console.log("Fetch Error");
-        console.log(error.data);
     }
 });
 

@@ -3,22 +3,6 @@
         <Heading class="my-8 text-center"> Sign in to Coverbase </Heading>
 
         <Card>
-            <div class="flex flex-col gap-2">
-                <Button variant="secondary">
-                    <IconBrandGoogle width="20" height="20" />
-
-                    Google
-                </Button>
-
-                <Button variant="secondary">
-                    <IconBrandGithub width="20" height="20" />
-
-                    GitHub
-                </Button>
-            </div>
-
-            <Divider />
-
             <Button variant="secondary" to="/sign-in/email" :as="NuxtLink">
                 <IconMail width="20" height="20" />
 
@@ -30,9 +14,13 @@
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
-import { IconBrandGithub, IconBrandGoogle, IconMail } from "@tabler/icons-vue";
+import { IconMail } from "@tabler/icons-vue";
 
 definePageMeta({
     layout: "auth",
+});
+
+useSeoMeta({
+    title: "Sign In - Coverbase",
 });
 </script>

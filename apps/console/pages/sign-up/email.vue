@@ -3,19 +3,7 @@
         <Heading class="my-8 text-center"> Sign up to Coverbase </Heading>
 
         <Card as="form" @submit.prevent="handleSubmit">
-            <div class="grid grid-cols-2 gap-2">
-                <Label text="First name">
-                    <Input placeholder="John" required v-model="form.firstName" />
-                </Label>
-
-                <Label text="Last name">
-                    <Input placeholder="Doe" required v-model="form.lastName" />
-                </Label>
-            </div>
-
-            <Label text="Email">
-                <EmailInput required v-model="form.emailAddress" />
-            </Label>
+            <FormCreateAccount v-model="form" />
 
             <Button type="submit" :loading="accountLoading">
                 <span class="px-2"> Continue </span>
@@ -46,4 +34,8 @@ const form = ref<CreateAccountRequest>({
 async function handleSubmit() {
     await createAccount(form.value);
 }
+
+useSeoMeta({
+    title: "Email - Sign Up - Coverbase",
+});
 </script>

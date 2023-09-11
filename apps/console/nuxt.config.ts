@@ -1,4 +1,7 @@
 export default defineNuxtConfig({
+    ssr: false,
+    spaLoadingTemplate: false,
+
     modules: ["@coverbase/ui"],
 
     unocss: {
@@ -12,7 +15,7 @@ export default defineNuxtConfig({
             "bg-slate-50",
             "font-sans",
             "text-slate-900",
-            "text-base",
+            "text-sm",
         ],
     },
 
@@ -32,7 +35,7 @@ export default defineNuxtConfig({
         head: {
             title: "Coverbase",
             bodyAttrs: {
-                class: "overflow-hidden bg-slate-50 font-sans text-slate-900 text-base",
+                class: "overflow-hidden bg-slate-50 font-sans text-slate-900 text-sm",
             },
         },
     },

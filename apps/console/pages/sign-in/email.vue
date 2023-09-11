@@ -3,9 +3,7 @@
         <Heading class="my-8 text-center"> Sign in to Coverbase </Heading>
 
         <Card as="form" @submit.prevent="handleSubmit">
-            <Label text="Email">
-                <EmailInput required v-model="form.emailAddress" />
-            </Label>
+            <FormCreateSession v-model="form" />
 
             <Button type="submit" :loading="sessionLoading">
                 <span class="px-2"> Continue </span>
@@ -34,4 +32,8 @@ const form = ref<CreateSessionRequest>({
 async function handleSubmit() {
     await createSession(form.value);
 }
+
+useSeoMeta({
+    title: "Email - Sign In - Coverbase",
+});
 </script>
