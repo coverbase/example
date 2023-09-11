@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "fdc00461-06bc-4032-9ad5-d7de3e8a3614",
+  "id": "f3215491-07b7-4de9-9192-81525d66efc7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Accounts": {
@@ -19,13 +19,13 @@
           "name": "FirstName",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "LastName": {
           "name": "LastName",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "EmailAddress": {
           "name": "EmailAddress",
@@ -33,11 +33,98 @@
           "primaryKey": false,
           "notNull": true
         },
-        "PhoneNumber": {
-          "name": "PhoneNumber",
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Members": {
+      "name": "Members",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "AccountId": {
+          "name": "AccountId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "OrganizationId": {
+          "name": "OrganizationId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Members_AccountId_Accounts_Id_fk": {
+          "name": "Members_AccountId_Accounts_Id_fk",
+          "tableFrom": "Members",
+          "tableTo": "Accounts",
+          "columnsFrom": [
+            "AccountId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "Members_OrganizationId_Organizations_Id_fk": {
+          "name": "Members_OrganizationId_Organizations_Id_fk",
+          "tableFrom": "Members",
+          "tableTo": "Organizations",
+          "columnsFrom": [
+            "OrganizationId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Organizations": {
+      "name": "Organizations",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Name": {
+          "name": "Name",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "Created": {
           "name": "Created",
@@ -81,6 +168,62 @@
         "Session_AccountId_Accounts_Id_fk": {
           "name": "Session_AccountId_Accounts_Id_fk",
           "tableFrom": "Session",
+          "tableTo": "Accounts",
+          "columnsFrom": [
+            "AccountId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Tokens": {
+      "name": "Tokens",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Secret": {
+          "name": "Secret",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "AccountId": {
+          "name": "AccountId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Tokens_AccountId_Accounts_Id_fk": {
+          "name": "Tokens_AccountId_Accounts_Id_fk",
+          "tableFrom": "Tokens",
           "tableTo": "Accounts",
           "columnsFrom": [
             "AccountId"

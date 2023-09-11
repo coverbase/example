@@ -20,6 +20,21 @@ export async function createSession(form: CreateSessionRequest) {
     }
 }
 
+export function deleteSession() {
+    const loading = useSessionLoading();
+
+    loading.value = true;
+    try {
+        const accessToken = useAccessToken();
+
+        accessToken.value = "";
+
+        navigateTo("/sign-in");
+    } finally {
+        loading.value = false;
+    }
+}
+
 export function getSession() {
     const route = useRoute();
 

@@ -1,12 +1,16 @@
 <template>
-    <NuxtLayout name="default">
+    <NuxtLayout name="default" title="Account">
         <div class="grid grid-layout-aside overflow-hidden">
             <Aside>
-                <UiButtonLink to="/account">
-                    <IconHome width="20" height="20" />
+                <ButtonLink to="/account/general" :icon="IconHome"> General </ButtonLink>
 
-                    General
-                </UiButtonLink>
+                <ButtonLink to="/account/tokens" :icon="IconKey"> Access Tokens </ButtonLink>
+
+                <ButtonLink to="/account/organizations" :icon="IconBuildingSkyscraper">
+                    Organizations
+                </ButtonLink>
+
+                <ButtonLink to="/account/billing" :icon="IconCreditCard"> Billing </ButtonLink>
             </Aside>
 
             <main class="overflow-y-scroll">
@@ -19,5 +23,5 @@
 </template>
 
 <script setup lang="ts">
-import { IconHome } from "@tabler/icons-vue";
+import { IconBuildingSkyscraper, IconCreditCard, IconHome, IconKey } from "@tabler/icons-vue";
 </script>

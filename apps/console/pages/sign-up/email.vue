@@ -1,19 +1,17 @@
 <template>
-    <div class="max-w-lg mx-auto flex flex-col gap-4">
-        <Heading class="my-8 text-center"> Sign up to Coverbase </Heading>
+    <Heading class="my-6 text-center"> Sign up to Coverbase </Heading>
 
-        <Card as="form" @submit.prevent="handleSubmit">
-            <FormCreateAccount v-model="form" />
+    <Card as="form" @submit.prevent="handleSubmit">
+        <FormCreateAccount v-model="form" />
 
-            <Button type="submit" :loading="accountLoading">
-                <span class="px-2"> Continue </span>
-            </Button>
-        </Card>
+        <Button type="submit" :loading="accountLoading">
+            <span class="px-2"> Continue </span>
+        </Button>
+    </Card>
 
-        <TextLink class="justify-center" to="/sign-up" :as="NuxtLink">
-            ← Other Sign up Options
-        </TextLink>
-    </div>
+    <TextLink class="justify-center" to="/sign-up" :as="NuxtLink">
+        ← Other Sign up Options
+    </TextLink>
 </template>
 
 <script setup lang="ts">

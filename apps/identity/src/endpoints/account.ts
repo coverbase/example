@@ -1,5 +1,12 @@
 import { ErrorCode, createError, useValidatedBody } from "@coverbase/http";
-import { accounts, createAccountSchema, updateAccountSchema } from "@coverbase/schema";
+import {
+    accounts,
+    createAccountSchema,
+    members,
+    sessions,
+    tokens,
+    updateAccountSchema,
+} from "@coverbase/schema";
 import { eq } from "drizzle-orm";
 import { Handler } from "hono";
 import { useAccount } from "../utils/account";
@@ -8,7 +15,7 @@ import { useDatabase } from "../utils/database";
 export const createAccount: Handler = async (context) => {
     const db = useDatabase(context);
 
-    const { firstName, lastName, phoneNumber, emailAddress } = await useValidatedBody(
+    const { firstName, lastName, emailAddress } = await useValidatedBody(
         context,
         createAccountSchema
     );
@@ -28,7 +35,6 @@ export const createAccount: Handler = async (context) => {
         .values({
             firstName: firstName,
             lastName: lastName,
-            phoneNumber: phoneNumber,
             emailAddress: emailAddress,
         })
         .returning();
@@ -40,7 +46,7 @@ export const updateAccount: Handler = async (context) => {
     const db = useDatabase(context);
     const account = await useAccount(context);
 
-    const { firstName, lastName, phoneNumber, emailAddress } = await useValidatedBody(
+    const { firstName, lastName, emailAddress } = await useValidatedBody(
         context,
         updateAccountSchema
     );
@@ -51,7 +57,6 @@ export const updateAccount: Handler = async (context) => {
             .set({
                 firstName: firstName,
                 lastName: lastName,
-                phoneNumber: phoneNumber,
                 emailAddress: emailAddress,
             })
             .where(eq(accounts.id, account.id))
@@ -70,6 +75,10 @@ export const deleteAccount: Handler = async (context) => {
     const account = await useAccount(context);
 
     if (account) {
+        await db.delete(sessions).where(eq(accounts.id, account.id));
+        await db.delete(tokens).where(eq(accounts.id, account.id));
+        await db.delete(members).where(eq(accounts.id, account.id));
+
         const [accountDelete] = await db
             .delete(accounts)
             .where(eq(accounts.id, account.id))

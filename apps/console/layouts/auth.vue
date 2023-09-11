@@ -14,8 +14,10 @@
             </div>
         </UiHeader>
 
-        <div class="p-4 overflow-y-scroll">
-            <slot />
+        <div class="overflow-y-scroll">
+            <Center class="max-w-lg">
+                <slot />
+            </Center>
         </div>
     </main>
 </template>

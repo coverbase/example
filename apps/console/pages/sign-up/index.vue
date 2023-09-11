@@ -1,15 +1,13 @@
 <template>
-    <div class="max-w-lg mx-auto flex flex-col gap-4">
-        <Heading class="my-8 text-center"> Sign up to Coverbase </Heading>
+    <Heading class="my-6 text-center"> Sign up to Coverbase </Heading>
 
-        <Card>
-            <Button variant="secondary" to="/sign-up/email" :as="NuxtLink">
-                <IconMail width="20" height="20" />
+    <Card>
+        <Button variant="secondary" to="/sign-up/email" :as="NuxtLink">
+            <IconMail width="20" height="20" />
 
-                Continue with Email
-            </Button>
-        </Card>
-    </div>
+            Continue with Email
+        </Button>
+    </Card>
 </template>
 
 <script setup lang="ts">
