@@ -5,8 +5,6 @@
                 <ButtonLink to="/account/general" :icon="IconHome"> General </ButtonLink>
 
                 <ButtonLink to="/account/tokens" :icon="IconKey"> Tokens </ButtonLink>
-
-                <ButtonLink to="/account/billing" :icon="IconCreditCard"> Billing </ButtonLink>
             </Aside>
 
             <main class="overflow-y-scroll">
@@ -19,5 +17,5 @@
 </template>
 
 <script setup lang="ts">
-import { IconCreditCard, IconHome, IconKey } from "@tabler/icons-vue";
+import { IconHome, IconKey } from "@tabler/icons-vue";
 </script>
