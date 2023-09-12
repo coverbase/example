@@ -4,11 +4,7 @@
             <Aside>
                 <ButtonLink to="/account/general" :icon="IconHome"> General </ButtonLink>
 
-                <ButtonLink to="/account/tokens" :icon="IconKey"> Access Tokens </ButtonLink>
-
-                <ButtonLink to="/account/organizations" :icon="IconBuildingSkyscraper">
-                    Organizations
-                </ButtonLink>
+                <ButtonLink to="/account/tokens" :icon="IconKey"> Tokens </ButtonLink>
 
                 <ButtonLink to="/account/billing" :icon="IconCreditCard"> Billing </ButtonLink>
             </Aside>
@@ -23,5 +19,5 @@
 </template>
 
 <script setup lang="ts">
-import { IconBuildingSkyscraper, IconCreditCard, IconHome, IconKey } from "@tabler/icons-vue";
+import { IconCreditCard, IconHome, IconKey } from "@tabler/icons-vue";
 </script>

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "f3215491-07b7-4de9-9192-81525d66efc7",
+  "id": "0a2e51bc-a2a7-451b-9b0f-67b1c9f08ceb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Accounts": {
@@ -29,99 +29,6 @@
         },
         "EmailAddress": {
           "name": "EmailAddress",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "Created": {
-          "name": "Created",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "Members": {
-      "name": "Members",
-      "schema": "",
-      "columns": {
-        "Id": {
-          "name": "Id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "Created": {
-          "name": "Created",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "AccountId": {
-          "name": "AccountId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "OrganizationId": {
-          "name": "OrganizationId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Members_AccountId_Accounts_Id_fk": {
-          "name": "Members_AccountId_Accounts_Id_fk",
-          "tableFrom": "Members",
-          "tableTo": "Accounts",
-          "columnsFrom": [
-            "AccountId"
-          ],
-          "columnsTo": [
-            "Id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "Members_OrganizationId_Organizations_Id_fk": {
-          "name": "Members_OrganizationId_Organizations_Id_fk",
-          "tableFrom": "Members",
-          "tableTo": "Organizations",
-          "columnsFrom": [
-            "OrganizationId"
-          ],
-          "columnsTo": [
-            "Id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "Organizations": {
-      "name": "Organizations",
-      "schema": "",
-      "columns": {
-        "Id": {
-          "name": "Id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "Name": {
-          "name": "Name",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true

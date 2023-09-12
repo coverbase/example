@@ -2,7 +2,6 @@ import { ErrorCode, auth, createError, validation } from "@coverbase/http";
 import {
     accounts,
     createAccountSchema,
-    members,
     sessions,
     tokens,
     updateAccountSchema,
@@ -80,7 +79,6 @@ export function mapAccountEndpoints(app: Hono) {
         if (account) {
             await db.delete(sessions).where(eq(accounts.id, account.id));
             await db.delete(tokens).where(eq(accounts.id, account.id));
-            await db.delete(members).where(eq(accounts.id, account.id));
 
             const [accountDelete] = await db
                 .delete(accounts)

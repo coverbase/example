@@ -3,10 +3,6 @@
         <div class="grid grid-layout-aside overflow-hidden">
             <Aside>
                 <ButtonLink to="/identity/accounts" :icon="IconUsers"> Accounts </ButtonLink>
-
-                <ButtonLink to="/identity/organizations" :icon="IconBuildingSkyscraper">
-                    Organizations
-                </ButtonLink>
             </Aside>
 
             <main class="overflow-y-scroll">
@@ -19,5 +15,5 @@
 </template>
 
 <script setup lang="ts">
-import { IconBuildingSkyscraper, IconUsers } from "@tabler/icons-vue";
+import { IconUsers } from "@tabler/icons-vue";
 </script>
