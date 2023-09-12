@@ -1,4 +1,17 @@
 <template>
+    <Breadcrumb
+        :routes="[
+            {
+                name: 'Tokens',
+                to: '/account/tokens',
+            },
+            {
+                name: token?.name ?? '',
+                to: `/account/tokens/${token?.id}`,
+            },
+        ]"
+    />
+
     <Card as="form" @submit.prevent="handleUpdate">
         <Subheading> Token "{{ token?.name }}" </Subheading>
 

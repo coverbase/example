@@ -1,4 +1,17 @@
 <template>
+    <Breadcrumb
+        :routes="[
+            {
+                name: 'Tokens',
+                to: '/account/tokens',
+            },
+            {
+                name: 'Create',
+                to: '/account/tokens/create',
+            },
+        ]"
+    />
+
     <Card as="form" @submit.prevent="handleCreate">
         <Subheading> New Token </Subheading>
 
