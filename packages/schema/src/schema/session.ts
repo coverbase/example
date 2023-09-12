@@ -1,6 +1,6 @@
-import { Output, email, objectAsync, string } from "valibot";
+import { Output, email, object, string } from "valibot";
 
-export const createSessionSchema = objectAsync({
+export const createSessionSchema = object({
     emailAddress: string([email()]),
 });
 

@@ -1,12 +1,12 @@
-import { Output, email, objectAsync, optional, string } from "valibot";
+import { Output, email, object, optional, string } from "valibot";
 
-export const createAccountSchema = objectAsync({
+export const createAccountSchema = object({
     firstName: string(),
     lastName: string(),
     emailAddress: string([email()]),
 });
 
-export const updateAccountSchema = objectAsync({
+export const updateAccountSchema = object({
     firstName: optional(string()),
     lastName: optional(string()),
     emailAddress: optional(string([email()])),
