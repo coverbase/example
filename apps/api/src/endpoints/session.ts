@@ -9,7 +9,7 @@ import { useDatabase } from "../utils/database";
 import { sendMail } from "../utils/mail";
 
 export function mapSessionEndpoints(app: Hono) {
-    app.post("/sessions", validation("json", createSessionSchema), async (context) => {
+    app.post("/v1/sessions", validation("json", createSessionSchema), async (context) => {
         const db = useDatabase(context);
 
         const { emailAddress } = context.req.valid("json");
@@ -42,7 +42,7 @@ export function mapSessionEndpoints(app: Hono) {
         });
     });
 
-    app.get("/sessions/:sessionId", async (context) => {
+    app.get("/v1/sessions/:sessionId", async (context) => {
         const db = useDatabase(context);
         const { SECRET } = env(context);
 

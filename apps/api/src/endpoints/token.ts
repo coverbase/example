@@ -6,7 +6,7 @@ import { generateToken } from "../utils/account";
 import { useDatabase } from "../utils/database";
 
 export function mapTokenEndpoints(app: Hono) {
-    app.post("/tokens", auth(), validation("json", createTokenSchema), async (context) => {
+    app.post("/v1/tokens", auth(), validation("json", createTokenSchema), async (context) => {
         const db = useDatabase(context);
 
         const { sub } = context.get("auth");
@@ -24,35 +24,40 @@ export function mapTokenEndpoints(app: Hono) {
         return context.json(tokenCreate);
     });
 
-    app.put("/tokens/:tokenId", auth(), validation("json", updateTokenSchema), async (context) => {
-        const db = useDatabase(context);
+    app.put(
+        "/v1/tokens/:tokenId",
+        auth(),
+        validation("json", updateTokenSchema),
+        async (context) => {
+            const db = useDatabase(context);
 
-        const { tokenId } = context.req.param();
-        const { sub } = context.get("auth");
-        const { name } = context.req.valid("json");
+            const { tokenId } = context.req.param();
+            const { sub } = context.get("auth");
+            const { name } = context.req.valid("json");
 
-        const token = await db.query.tokens.findFirst({
-            where: and(eq(tokens.id, tokenId), eq(tokens.accountId, sub)),
-        });
+            const token = await db.query.tokens.findFirst({
+                where: and(eq(tokens.id, tokenId), eq(tokens.accountId, sub)),
+            });
 
-        if (token) {
-            const [tokenUpdate] = await db
-                .update(tokens)
-                .set({
-                    name: name,
-                })
-                .where(eq(tokens.id, token.id))
-                .returning();
+            if (token) {
+                const [tokenUpdate] = await db
+                    .update(tokens)
+                    .set({
+                        name: name,
+                    })
+                    .where(eq(tokens.id, token.id))
+                    .returning();
 
-            return context.json(tokenUpdate);
+                return context.json(tokenUpdate);
+            }
+
+            throw createError({
+                code: ErrorCode.NOT_FOUND,
+            });
         }
+    );
 
-        throw createError({
-            code: ErrorCode.NOT_FOUND,
-        });
-    });
-
-    app.delete("/tokens/:tokenId", auth(), async (context) => {
+    app.delete("/v1/tokens/:tokenId", auth(), async (context) => {
         const db = useDatabase(context);
 
         const { tokenId } = context.req.param();
@@ -76,7 +81,7 @@ export function mapTokenEndpoints(app: Hono) {
         });
     });
 
-    app.get("/tokens/:tokenId", auth(), async (context) => {
+    app.get("/v1/tokens/:tokenId", auth(), async (context) => {
         const db = useDatabase(context);
 
         const { tokenId } = context.req.param();
@@ -95,7 +100,7 @@ export function mapTokenEndpoints(app: Hono) {
         });
     });
 
-    app.get("/tokens", auth(), async (context) => {
+    app.get("/v1/tokens", auth(), async (context) => {
         const db = useDatabase(context);
 
         const { sub } = context.get("auth");

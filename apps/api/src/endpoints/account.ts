@@ -11,7 +11,7 @@ import { Hono } from "hono";
 import { useDatabase } from "../utils/database";
 
 export function mapAccountEndpoints(app: Hono) {
-    app.post("/accounts", validation("json", createAccountSchema), async (context) => {
+    app.post("/v1/accounts", validation("json", createAccountSchema), async (context) => {
         const db = useDatabase(context);
 
         const { firstName, lastName, emailAddress } = context.req.valid("json");
@@ -38,7 +38,7 @@ export function mapAccountEndpoints(app: Hono) {
         return context.json(accountCreate);
     });
 
-    app.put("/accounts", auth(), validation("json", updateAccountSchema), async (context) => {
+    app.put("/v1/accounts", auth(), validation("json", updateAccountSchema), async (context) => {
         const db = useDatabase(context);
 
         const { sub } = context.get("auth");
@@ -67,7 +67,7 @@ export function mapAccountEndpoints(app: Hono) {
         });
     });
 
-    app.delete("/accounts", auth(), async (context) => {
+    app.delete("/v1/accounts", auth(), async (context) => {
         const db = useDatabase(context);
 
         const { sub } = context.get("auth");
@@ -93,7 +93,7 @@ export function mapAccountEndpoints(app: Hono) {
         });
     });
 
-    app.get("/accounts", auth(), async (context) => {
+    app.get("/v1/accounts", auth(), async (context) => {
         const db = useDatabase(context);
 
         const { sub } = context.get("auth");

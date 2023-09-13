@@ -47,7 +47,7 @@ export default defineNuxtConfig({
 
         runtimeConfig: {
             public: {
-                apiUrl: "https://api.coverbase.co/",
+                apiUrl: "https://api.coverbase.co/v1/",
             },
         },
     },
@@ -55,7 +55,7 @@ export default defineNuxtConfig({
     $development: {
         runtimeConfig: {
             public: {
-                apiUrl: "http://localhost:5000/",
+                apiUrl: "http://localhost:5000/v1/",
             },
         },
     },

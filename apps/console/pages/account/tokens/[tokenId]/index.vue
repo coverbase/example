@@ -26,7 +26,7 @@
         <div class="flex items-center justify-between">
             <Subheading> Danger Zone </Subheading>
 
-            <Button variant="danger" @click="dialog?.open(token?.name)">
+            <Button variant="danger" :loading="tokenLoading" @click="dialog?.open(token?.name)">
                 <span class="px-2"> Delete Token </span>
             </Button>
         </div>
@@ -53,8 +53,6 @@ const form = ref<UpdateTokenRequest>({
 
 async function handleUpdate() {
     await updateToken(form.value);
-
-    navigateTo("/account/tokens");
 }
 
 async function handleDelete() {
