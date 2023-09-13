@@ -6,7 +6,7 @@
                 to: `/projects/${$route.params.projectId}/members`,
             },
             {
-                name: member?.accountId,
+                name: `${member?.account?.firstName} ${member?.account?.lastName}`,
                 to: `/projects/${$route.params.projectId}/members/${member?.id}`,
             },
         ]"
@@ -29,7 +29,7 @@
             <Button
                 variant="danger"
                 :loading="memberLoading"
-                @click="dialog?.open(member?.accountId)"
+                @click="dialog?.open(`${member?.account?.firstName} ${member?.account?.lastName}`)"
             >
                 <span class="px-2"> Delete Member </span>
             </Button>

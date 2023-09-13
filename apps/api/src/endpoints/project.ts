@@ -1,6 +1,6 @@
 import { ErrorCode, auth, createError, validation } from "@coverbase/http";
 import { createProjectSchema, projects, updateProjectSchema } from "@coverbase/schema";
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { useDatabase } from "../utils/database";
 
@@ -87,6 +87,9 @@ export function mapProjectEndpoints(app: Hono) {
 
         const project = await db.query.projects.findFirst({
             where: and(eq(projects.id, projectId), eq(projects.accountId, sub)),
+            with: {
+                account: true,
+            },
         });
 
         if (project) {
@@ -105,6 +108,10 @@ export function mapProjectEndpoints(app: Hono) {
 
         const projectList = await db.query.projects.findMany({
             where: eq(projects.accountId, sub),
+            orderBy: asc(projects.created),
+            with: {
+                account: true,
+            },
         });
 
         return context.json(projectList);

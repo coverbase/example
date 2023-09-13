@@ -6,7 +6,7 @@ import {
     projects,
     updateMemberSchema,
 } from "@coverbase/schema";
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { useDatabase } from "../utils/database";
 
@@ -112,6 +112,9 @@ export function mapMemberEndpoints(app: Hono) {
 
         const member = await db.query.members.findFirst({
             where: eq(members.id, memberId),
+            with: {
+                account: true,
+            },
         });
 
         if (member) {
@@ -131,6 +134,10 @@ export function mapMemberEndpoints(app: Hono) {
 
         const memberList = await db.query.members.findMany({
             where: eq(members.projectId, projectId),
+            orderBy: asc(members.created),
+            with: {
+                account: true,
+            },
         });
 
         return context.json(memberList);

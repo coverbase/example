@@ -1,0 +1,1 @@
+ALTER TABLE "Members" ADD COLUMN "Created" timestamp with time zone DEFAULT now() NOT NULL;

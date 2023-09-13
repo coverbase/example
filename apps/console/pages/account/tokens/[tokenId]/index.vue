@@ -13,7 +13,7 @@
     />
 
     <Card as="form" @submit.prevent="handleUpdate">
-        <Subheading> Token "{{ token?.name }}" </Subheading>
+        <Subheading> Token Settings </Subheading>
 
         <FormUpdateToken v-model="form" />
 

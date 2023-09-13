@@ -1,6 +1,6 @@
 import { ErrorCode, auth, createError, validation } from "@coverbase/http";
 import { createTokenSchema, tokens, updateTokenSchema } from "@coverbase/schema";
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { generateToken } from "../utils/account";
 import { useDatabase } from "../utils/database";
@@ -95,6 +95,9 @@ export function mapTokenEndpoints(app: Hono) {
 
         const token = await db.query.tokens.findFirst({
             where: and(eq(tokens.id, tokenId), eq(tokens.accountId, sub)),
+            with: {
+                account: true,
+            },
             columns: {
                 secret: false,
             },
@@ -116,6 +119,10 @@ export function mapTokenEndpoints(app: Hono) {
 
         const tokenList = await db.query.tokens.findMany({
             where: and(eq(tokens.accountId, sub)),
+            orderBy: asc(tokens.created),
+            with: {
+                account: true,
+            },
             columns: {
                 secret: false,
             },

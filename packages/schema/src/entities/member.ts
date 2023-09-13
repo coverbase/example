@@ -1,10 +1,11 @@
 import { InferSelectModel, relations } from "drizzle-orm";
-import { pgTable, uuid } from "drizzle-orm/pg-core";
-import { accounts } from "./account";
-import { projects } from "./project";
+import { pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
+import { AccountEntity, accounts } from "./account";
+import { ProjectEntity, projects } from "./project";
 
 export const members = pgTable("Members", {
     id: uuid("Id").primaryKey().defaultRandom(),
+    created: timestamp("Created", { withTimezone: true }).notNull().defaultNow(),
 
     accountId: uuid("AccountId")
         .notNull()
@@ -27,4 +28,7 @@ export const memberRelations = relations(members, ({ one }) => ({
     }),
 }));
 
-export type MemberEntity = InferSelectModel<typeof members>;
+export type MemberEntity = InferSelectModel<typeof members> & {
+    account?: AccountEntity;
+    project?: ProjectEntity;
+};

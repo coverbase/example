@@ -9,14 +9,22 @@
 
     <List empty="No members found." :items="members" v-slot="{ item }">
         <div class="flex items-center justify-between p-4">
-            <TextLink
-                class="px-2 font-semibold text-base"
-                variant="secondary"
-                :to="`/projects/${$route.params.projectId}/members/${item.id}`"
-                :as="NuxtLink"
-            >
-                {{ item.accountId }}
-            </TextLink>
+            <div class="flex flex-col gap-1 px-2">
+                <TextLink
+                    class="font-semibold text-base"
+                    variant="secondary"
+                    :to="`/projects/${$route.params.projectId}/members/${item.id}`"
+                    :as="NuxtLink"
+                >
+                    {{ item.account?.firstName }} {{ item.account?.lastName }}
+                </TextLink>
+
+                <div class="flex">
+                    <p class="text-slate-400">
+                        {{ formatDate(item.created) }}
+                    </p>
+                </div>
+            </div>
 
             <Button
                 variant="outline"

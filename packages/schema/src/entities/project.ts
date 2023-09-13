@@ -1,7 +1,7 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import { accounts } from "./account";
-import { members } from "./member";
+import { AccountEntity, accounts } from "./account";
+import { MemberEntity, members } from "./member";
 
 export const projects = pgTable("Projects", {
     id: uuid("Id").primaryKey().defaultRandom(),
@@ -22,4 +22,7 @@ export const projectRelations = relations(projects, ({ one, many }) => ({
     }),
 }));
 
-export type ProjectEntity = InferSelectModel<typeof projects>;
+export type ProjectEntity = InferSelectModel<typeof projects> & {
+    members?: Array<MemberEntity>;
+    account?: AccountEntity;
+};

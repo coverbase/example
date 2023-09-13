@@ -1,6 +1,6 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import { accounts } from "./account";
+import { AccountEntity, accounts } from "./account";
 
 export const tokens = pgTable("Tokens", {
     id: uuid("Id").primaryKey().defaultRandom(),
@@ -20,4 +20,6 @@ export const tokenRelations = relations(tokens, ({ one }) => ({
     }),
 }));
 
-export type TokenEntity = InferSelectModel<typeof tokens>;
+export type TokenEntity = InferSelectModel<typeof tokens> & {
+    account?: AccountEntity;
+};
