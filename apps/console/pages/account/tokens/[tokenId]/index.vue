@@ -41,6 +41,7 @@ import { UpdateTokenRequest } from "@coverbase/schema";
 
 definePageMeta({
     layout: "account",
+    middleware: ["auth"],
 });
 
 const { data: token } = getToken();

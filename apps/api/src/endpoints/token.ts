@@ -37,6 +37,9 @@ export function mapTokenEndpoints(app: Hono) {
 
             const token = await db.query.tokens.findFirst({
                 where: and(eq(tokens.id, tokenId), eq(tokens.accountId, sub)),
+                columns: {
+                    secret: false,
+                },
             });
 
             if (token) {
@@ -65,6 +68,9 @@ export function mapTokenEndpoints(app: Hono) {
 
         const token = await db.query.tokens.findFirst({
             where: and(eq(tokens.id, tokenId), eq(tokens.accountId, sub)),
+            columns: {
+                secret: false,
+            },
         });
 
         if (token) {
@@ -89,6 +95,9 @@ export function mapTokenEndpoints(app: Hono) {
 
         const token = await db.query.tokens.findFirst({
             where: and(eq(tokens.id, tokenId), eq(tokens.accountId, sub)),
+            columns: {
+                secret: false,
+            },
         });
 
         if (token) {
@@ -107,6 +116,9 @@ export function mapTokenEndpoints(app: Hono) {
 
         const tokenList = await db.query.tokens.findMany({
             where: and(eq(tokens.accountId, sub)),
+            columns: {
+                secret: false,
+            },
         });
 
         return context.json(tokenList);

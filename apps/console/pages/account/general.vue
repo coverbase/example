@@ -33,6 +33,7 @@ import { UpdateAccountRequest } from "@coverbase/schema";
 
 definePageMeta({
     layout: "account",
+    middleware: ["auth"],
 });
 
 const dialog = ref<InstanceType<typeof DialogDelete>>();

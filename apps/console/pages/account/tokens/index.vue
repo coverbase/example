@@ -26,6 +26,7 @@ import { IconSettings } from "@tabler/icons-vue";
 
 definePageMeta({
     layout: "account",
+    middleware: ["auth"],
 });
 
 const { data: tokens } = listTokens();

@@ -28,6 +28,7 @@ import { CreateTokenRequest } from "@coverbase/schema";
 
 definePageMeta({
     layout: "account",
+    middleware: ["auth"],
 });
 
 const tokenLoading = useTokenLoading();
