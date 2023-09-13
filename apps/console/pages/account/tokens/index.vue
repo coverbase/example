@@ -9,9 +9,14 @@
 
     <List empty="No tokens found." :items="tokens" v-slot="{ item }">
         <div class="p-4 flex items-center justify-between">
-            <Strong class="px-2">
+            <TextLink
+                class="px-2 font-semibold text-base"
+                variant="secondary"
+                :to="`/account/tokens/${item.id}`"
+                :as="NuxtLink"
+            >
                 {{ item.name }}
-            </Strong>
+            </TextLink>
 
             <Button variant="outline" :to="`/account/tokens/${item.id}`" :as="NuxtLink">
                 <IconSettings width="20" height="20" />

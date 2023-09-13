@@ -7,13 +7,16 @@
         </Button>
     </div>
 
-    <List :items="projects" v-slot="{ item }">
+    <List empty="No projects found." :items="projects" v-slot="{ item }">
         <div class="p-4 flex items-center justify-between">
-            <NuxtLink :to="`/projects/${item.id}/overview`">
-                <Strong class="px-2">
-                    {{ item.name }}
-                </Strong>
-            </NuxtLink>
+            <TextLink
+                class="px-2 font-semibold text-base"
+                variant="secondary"
+                :to="`/projects/${item.id}/overview`"
+                :as="NuxtLink"
+            >
+                {{ item.name }}
+            </TextLink>
 
             <Button variant="outline" :to="`/projects/${item.id}/settings`" :as="NuxtLink">
                 <IconSettings width="20" height="20" />

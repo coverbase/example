@@ -6,6 +6,10 @@
                     Overview
                 </ButtonLink>
 
+                <ButtonLink :to="`/projects/${route.params.projectId}/members`" :icon="IconUsers">
+                    Members
+                </ButtonLink>
+
                 <ButtonLink
                     :to="`/projects/${route.params.projectId}/settings`"
                     :icon="IconSettings"
@@ -24,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconHome, IconSettings } from "@tabler/icons-vue";
+import { IconHome, IconSettings, IconUsers } from "@tabler/icons-vue";
 
 const route = useRoute();
 </script>

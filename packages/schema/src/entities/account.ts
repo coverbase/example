@@ -1,5 +1,6 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { members } from "./member";
 import { projects } from "./project";
 import { sessions } from "./session";
 import { tokens } from "./token";
@@ -16,6 +17,7 @@ export const accountRelations = relations(accounts, ({ many }) => ({
     sessions: many(sessions),
     tokens: many(tokens),
     projects: many(projects),
+    members: many(members),
 }));
 
 export type AccountEntity = InferSelectModel<typeof accounts>;

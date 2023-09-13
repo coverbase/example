@@ -3,6 +3,8 @@ export {
     accounts,
     countries,
     languages,
+    memberRelations,
+    members,
     projectRelations,
     projects,
     sessionRelations,

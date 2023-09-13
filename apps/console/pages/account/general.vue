@@ -4,7 +4,7 @@
 
         <FormUpdateAccount v-model="form" />
 
-        <Button type="submit" class="self-start" :loading="accountLoading">
+        <Button type="submit" class="sm:self-start" :loading="accountLoading">
             <span class="px-2"> Save Changes </span>
         </Button>
     </Card>
@@ -14,7 +14,6 @@
             <Subheading> Danger Zone </Subheading>
 
             <Button
-                class="self-start"
                 variant="danger"
                 :loading="accountLoading"
                 @click="dialog?.open(account?.emailAddress)"
