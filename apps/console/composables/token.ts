@@ -1,17 +1,25 @@
-import { CreateTokenRequest, TokenEntity, UpdateTokenRequest } from "@coverbase/schema";
+import { createTokenClient } from "@coverbase/client";
+import { CreateTokenRequest, UpdateTokenRequest } from "@coverbase/schema";
 
 export const useTokenLoading = () => useState("Token-Loading", () => false);
 
+export function useTokenClient() {
+    const accessToken = useAccessToken();
+    const config = useRuntimeConfig();
+
+    return createTokenClient({
+        baseUrl: config.public.apiUrl,
+        accessToken: accessToken.value,
+    });
+}
+
 export async function createToken(form: CreateTokenRequest) {
     const tokenLoading = useTokenLoading();
+    const client = useTokenClient();
 
     tokenLoading.value = true;
     try {
-        const response = await $fetch<TokenEntity>("/tokens", {
-            method: "POST",
-            onRequest: requestInterceptorJson,
-            body: JSON.stringify(form),
-        });
+        const response = await client.create(form);
 
         await refreshNuxtData("Tokens");
 
@@ -24,14 +32,11 @@ export async function createToken(form: CreateTokenRequest) {
 export async function updateToken(form: UpdateTokenRequest) {
     const tokenLoading = useTokenLoading();
     const route = useRoute();
+    const client = useTokenClient();
 
     tokenLoading.value = true;
     try {
-        const response = await $fetch<TokenEntity>(`/tokens/${route.params.tokenId}`, {
-            method: "PUT",
-            onRequest: requestInterceptorJson,
-            body: JSON.stringify(form),
-        });
+        const response = await client.update(route.params.tokenId as string, form);
 
         await refreshNuxtData(`Tokens-${route.params.tokenId}`);
 
@@ -44,13 +49,11 @@ export async function updateToken(form: UpdateTokenRequest) {
 export async function deleteToken() {
     const tokenLoading = useTokenLoading();
     const route = useRoute();
+    const client = useTokenClient();
 
     tokenLoading.value = true;
     try {
-        const response = await $fetch<TokenEntity>(`/tokens/${route.params.tokenId}`, {
-            method: "DELETE",
-            onRequest: requestInterceptorJson,
-        });
+        const response = await client.delete(route.params.tokenId as string);
 
         clearNuxtData(`Tokens-${route.params.tokenId}`);
 
@@ -62,18 +65,15 @@ export async function deleteToken() {
 
 export function getToken() {
     const route = useRoute();
+    const client = useTokenClient();
 
-    return useFetch<TokenEntity>(`/tokens/${route.params.tokenId}`, {
-        key: `Tokens-${route.params.tokenId}`,
-        method: "GET",
-        onRequest: requestInterceptorJson,
-    });
+    return useAsyncData(`Tokens-${route.params.tokenId}`, () =>
+        client.get(route.params.tokenId as string)
+    );
 }
 
 export function listTokens() {
-    return useFetch<Array<TokenEntity>>("/tokens", {
-        key: "Tokens",
-        method: "GET",
-        onRequest: requestInterceptorJson,
-    });
+    const client = useTokenClient();
+
+    return useAsyncData("Tokens", () => client.list());
 }

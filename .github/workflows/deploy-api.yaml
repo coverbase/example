@@ -1,11 +1,11 @@
-name: Deploy Identity
+name: Deploy Api
 
 on:
     push:
         branches:
             - "main"
         paths:
-            - "apps/identity/**"
+            - "apps/api/**"
             - "packages/**"
 
 env:
@@ -36,10 +36,13 @@ jobs:
               working-directory: ./packages/jwt
 
             - run: npm run build
+              working-directory: ./packages/client
+
+            - run: npm run build
               working-directory: ./packages/http
 
             - run: npm ci -w apps
 
-            - run: | 
-                npm run deploy
-              working-directory: ./apps/identity
+            - run: |
+                  npm run deploy
+              working-directory: ./apps/api

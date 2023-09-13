@@ -3,9 +3,7 @@
         <Heading> Tokens </Heading>
 
         <Button to="/account/tokens/create" :as="NuxtLink">
-            <IconPlus width="20" height="20" class="block sm:hidden" />
-
-            <span class="px-2 hidden sm:inline"> New Token </span>
+            <span class="px-2"> New Token </span>
         </Button>
     </div>
 
@@ -24,7 +22,7 @@
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
-import { IconPlus, IconSettings } from "@tabler/icons-vue";
+import { IconSettings } from "@tabler/icons-vue";
 
 definePageMeta({
     layout: "account",

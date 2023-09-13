@@ -1,5 +1,5 @@
 {
-    "name": "@coverbase/identity",
+    "name": "@coverbase/api",
     "private": true,
     "scripts": {
         "dev": "wrangler dev",

@@ -36,11 +36,14 @@ jobs:
               working-directory: ./packages/jwt
 
             - run: npm run build
+              working-directory: ./packages/client
+
+            - run: npm run build
               working-directory: ./packages/http
 
             - run: npm ci -w apps
 
             - run: |
-                npm run build
-                npm run deploy
+                  npm run build
+                  npm run deploy
               working-directory: ./apps/site

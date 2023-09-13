@@ -47,7 +47,7 @@ export default defineNuxtConfig({
 
         runtimeConfig: {
             public: {
-                apiUrl: "https://identity.coverbase.co/",
+                apiUrl: "https://api.coverbase.co/",
             },
         },
     },

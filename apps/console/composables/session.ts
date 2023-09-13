@@ -1,7 +1,18 @@
+import { createSessionClient } from "@coverbase/client";
 import { CreateSessionRequest, SessionEntity } from "@coverbase/schema";
 
 export const useAccessToken = () => useLocalStorage<string>("AccessToken", "");
 export const useSessionLoading = () => useState<boolean>("Session-Loading", () => false);
+
+export function useSessionClient() {
+    const accessToken = useAccessToken();
+    const config = useRuntimeConfig();
+
+    return createSessionClient({
+        baseUrl: config.public.apiUrl,
+        accessToken: accessToken.value,
+    });
+}
 
 export async function createSession(form: CreateSessionRequest) {
     const loading = useSessionLoading();

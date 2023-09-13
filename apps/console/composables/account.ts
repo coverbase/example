@@ -1,17 +1,25 @@
-import { AccountEntity, CreateAccountRequest, UpdateAccountRequest } from "@coverbase/schema";
+import { createAccountClient } from "@coverbase/client";
+import { CreateAccountRequest, UpdateAccountRequest } from "@coverbase/schema";
 
 export const useAccountLoading = () => useState<boolean>("Account-Loading", () => false);
 
+export function useAccountClient() {
+    const accessToken = useAccessToken();
+    const config = useRuntimeConfig();
+
+    return createAccountClient({
+        baseUrl: config.public.apiUrl,
+        accessToken: accessToken.value,
+    });
+}
+
 export async function createAccount(form: CreateAccountRequest) {
     const accountLoading = useAccountLoading();
+    const client = useAccountClient();
 
     accountLoading.value = true;
     try {
-        const response = await $fetch<AccountEntity>("/accounts", {
-            method: "POST",
-            onRequest: requestInterceptorJson,
-            body: JSON.stringify(form),
-        });
+        const response = await client.create(form);
 
         await createSession({
             emailAddress: form.emailAddress,
@@ -27,14 +35,11 @@ export async function createAccount(form: CreateAccountRequest) {
 
 export async function updateAccount(form: UpdateAccountRequest) {
     const accountLoading = useAccountLoading();
+    const client = useAccountClient();
 
     accountLoading.value = true;
     try {
-        const response = await $fetch<AccountEntity>("/accounts", {
-            method: "PUT",
-            body: JSON.stringify(form),
-            onRequest: requestInterceptorJson,
-        });
+        const response = await client.update(form);
 
         await refreshNuxtData("Accounts");
 
@@ -46,13 +51,11 @@ export async function updateAccount(form: UpdateAccountRequest) {
 
 export async function deleteAccount() {
     const accountLoading = useAccountLoading();
+    const client = useAccountClient();
 
     accountLoading.value = true;
     try {
-        const response = await $fetch<AccountEntity>("/accounts", {
-            method: "DELETE",
-            onRequest: requestInterceptorJson,
-        });
+        const response = await client.delete();
 
         await refreshNuxtData("Accounts");
 
@@ -63,9 +66,7 @@ export async function deleteAccount() {
 }
 
 export function getAccount() {
-    return useFetch<AccountEntity>("/accounts", {
-        key: `Accounts`,
-        method: "GET",
-        onRequest: requestInterceptorJson,
-    });
+    const client = useAccountClient();
+
+    return useAsyncData("Accounts", () => client.get());
 }

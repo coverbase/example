@@ -19,6 +19,7 @@
         "@coverbase/http": "*",
         "@coverbase/ui": "*",
         "@coverbase/schema": "*",
+        "@coverbase/client": "*",
         "@tabler/icons-vue": "^2.33.0"
     }
 }
