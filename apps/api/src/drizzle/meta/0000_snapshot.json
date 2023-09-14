@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "0a2e51bc-a2a7-451b-9b0f-67b1c9f08ceb",
+  "id": "6d991afd-3f01-420b-ac8d-97bd982324a3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Accounts": {
@@ -43,6 +43,252 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Countries": {
+      "name": "Countries",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Code": {
+          "name": "Code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Numeric": {
+          "name": "Numeric",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Languages": {
+      "name": "Languages",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Code": {
+          "name": "Code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Members": {
+      "name": "Members",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "RoleId": {
+          "name": "RoleId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AccountId": {
+          "name": "AccountId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectId": {
+          "name": "ProjectId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Members_RoleId_Roles_Id_fk": {
+          "name": "Members_RoleId_Roles_Id_fk",
+          "tableFrom": "Members",
+          "tableTo": "Roles",
+          "columnsFrom": [
+            "RoleId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "Members_AccountId_Accounts_Id_fk": {
+          "name": "Members_AccountId_Accounts_Id_fk",
+          "tableFrom": "Members",
+          "tableTo": "Accounts",
+          "columnsFrom": [
+            "AccountId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "Members_ProjectId_Projects_Id_fk": {
+          "name": "Members_ProjectId_Projects_Id_fk",
+          "tableFrom": "Members",
+          "tableTo": "Projects",
+          "columnsFrom": [
+            "ProjectId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Projects": {
+      "name": "Projects",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "AccountId": {
+          "name": "AccountId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Projects_AccountId_Accounts_Id_fk": {
+          "name": "Projects_AccountId_Accounts_Id_fk",
+          "tableFrom": "Projects",
+          "tableTo": "Accounts",
+          "columnsFrom": [
+            "AccountId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Roles": {
+      "name": "Roles",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ProjectId": {
+          "name": "ProjectId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Roles_ProjectId_Projects_Id_fk": {
+          "name": "Roles_ProjectId_Projects_Id_fk",
+          "tableFrom": "Roles",
+          "tableTo": "Projects",
+          "columnsFrom": [
+            "ProjectId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },

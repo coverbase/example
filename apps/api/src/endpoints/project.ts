@@ -1,5 +1,11 @@
 import { ErrorCode, auth, createError, validation } from "@coverbase/http";
-import { createProjectSchema, projects, updateProjectSchema } from "@coverbase/schema";
+import {
+    createProjectSchema,
+    members,
+    projects,
+    roles,
+    updateProjectSchema,
+} from "@coverbase/schema";
 import { and, asc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { useDatabase } from "../utils/database";
@@ -18,6 +24,20 @@ export function mapProjectEndpoints(app: Hono) {
                 accountId: sub,
             })
             .returning();
+
+        const [roleCreate] = await db
+            .insert(roles)
+            .values({
+                name: "Admin",
+                projectId: projectCreate.id,
+            })
+            .returning();
+
+        await db.insert(members).values({
+            accountId: sub,
+            projectId: projectCreate.id,
+            roleId: roleCreate.id,
+        });
 
         return context.json(projectCreate);
     });

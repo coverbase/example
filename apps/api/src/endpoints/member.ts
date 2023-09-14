@@ -4,6 +4,7 @@ import {
     createMemberSchema,
     members,
     projects,
+    roles,
     updateMemberSchema,
 } from "@coverbase/schema";
 import { and, asc, eq } from "drizzle-orm";
@@ -20,22 +21,27 @@ export function mapMemberEndpoints(app: Hono) {
 
             const { projectId } = context.req.param();
             const { sub } = context.get("auth");
-            const { emailAddress } = context.req.valid("json");
+            const { emailAddress, roleId } = context.req.valid("json");
 
             const project = await db.query.projects.findFirst({
                 where: and(eq(projects.id, projectId), eq(projects.accountId, sub)),
+            });
+
+            const role = await db.query.roles.findFirst({
+                where: and(eq(projects.id, projectId), eq(roles.id, roleId)),
             });
 
             const account = await db.query.accounts.findFirst({
                 where: eq(accounts.emailAddress, emailAddress),
             });
 
-            if (project && account) {
+            if (project && role && account) {
                 const [memberCreate] = await db
                     .insert(members)
                     .values({
                         accountId: account.id,
                         projectId: project.id,
+                        roleId: role.id,
                     })
                     .returning();
 
@@ -57,7 +63,7 @@ export function mapMemberEndpoints(app: Hono) {
 
             const { memberId } = context.req.param();
             const { sub } = context.get("auth");
-            const {} = context.req.valid("json");
+            const { roleId } = context.req.valid("json");
 
             const member = await db.query.members.findFirst({
                 where: eq(members.id, memberId),
@@ -68,6 +74,7 @@ export function mapMemberEndpoints(app: Hono) {
                     .update(members)
                     .set({
                         id: member.id,
+                        roleId: roleId,
                     })
                     .returning();
 
@@ -114,6 +121,7 @@ export function mapMemberEndpoints(app: Hono) {
             where: eq(members.id, memberId),
             with: {
                 account: true,
+                role: true,
             },
         });
 
@@ -137,6 +145,7 @@ export function mapMemberEndpoints(app: Hono) {
             orderBy: asc(members.created),
             with: {
                 account: true,
+                role: true,
             },
         });
 

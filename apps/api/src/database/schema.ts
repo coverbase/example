@@ -7,6 +7,8 @@ export {
     members,
     projectRelations,
     projects,
+    roleRelations,
+    roles,
     sessionRelations,
     sessions,
     tokenRelations,

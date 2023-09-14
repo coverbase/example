@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1694516063700,
-      "tag": "0000_youthful_captain_stacy",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1694597045948,
-      "tag": "0001_flimsy_namora",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1694601321837,
-      "tag": "0002_organic_iron_monger",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1694605471730,
-      "tag": "0003_heavy_nocturne",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1694609790150,
-      "tag": "0004_mushy_the_captain",
+      "when": 1694682500452,
+      "tag": "0000_curious_steel_serpent",
       "breakpoints": true
     }
   ]

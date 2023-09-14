@@ -5,6 +5,7 @@ import { mapCountryEndpoints } from "./endpoints/country";
 import { mapLanguageEndpoints } from "./endpoints/language";
 import { mapMemberEndpoints } from "./endpoints/member";
 import { mapProjectEndpoints } from "./endpoints/project";
+import { mapRoleEndpoints } from "./endpoints/role";
 import { mapSessionEndpoints } from "./endpoints/session";
 import { mapTokenEndpoints } from "./endpoints/token";
 
@@ -19,5 +20,6 @@ mapLanguageEndpoints(app);
 mapCountryEndpoints(app);
 mapProjectEndpoints(app);
 mapMemberEndpoints(app);
+mapRoleEndpoints(app);
 
 export default app;

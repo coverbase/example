@@ -9,7 +9,7 @@
 
     <List empty="No members found." :items="members" v-slot="{ item }">
         <div class="flex items-center justify-between p-4">
-            <div class="flex flex-col gap-1 px-2">
+            <div class="flex flex-col px-2">
                 <TextLink
                     class="font-semibold text-base"
                     variant="secondary"
@@ -19,8 +19,14 @@
                     {{ item.account?.firstName }} {{ item.account?.lastName }}
                 </TextLink>
 
-                <div class="flex">
-                    <p class="text-slate-400">
+                <div class="flex gap-2 text-slate-400">
+                    <p>
+                        {{ item.role?.name }}
+                    </p>
+
+                    <p>•</p>
+
+                    <p>
                         {{ formatDate(item.created) }}
                     </p>
                 </div>

@@ -9,7 +9,7 @@
 
     <List empty="No projects found." :items="projects" v-slot="{ item }">
         <div class="p-4 flex items-center justify-between">
-            <div class="flex flex-col gap-1 px-2">
+            <div class="flex flex-col px-2">
                 <TextLink
                     class="font-semibold text-base"
                     variant="secondary"
