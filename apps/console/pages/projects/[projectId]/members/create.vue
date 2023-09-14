@@ -35,6 +35,7 @@ const route = useRoute();
 const memberLoading = useMemberLoading();
 const form = ref<CreateMemberRequest>({
     emailAddress: "moritz.mueller@coverbase.co",
+    roleId: "",
 });
 
 async function handleCreate() {

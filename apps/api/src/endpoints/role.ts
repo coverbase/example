@@ -1,7 +1,7 @@
-import { auth } from "@coverbase/http";
 import { roles } from "@coverbase/schema";
 import { eq } from "drizzle-orm";
 import { Hono } from "hono";
+import { auth } from "../middleware/auth";
 import { useDatabase } from "../utils/database";
 
 export function mapRoleEndpoints(app: Hono) {

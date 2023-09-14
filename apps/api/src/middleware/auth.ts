@@ -1,7 +1,7 @@
-import { JwtPayload, decode, verify } from "@coverbase/jwt";
 import { Env, Input, MiddlewareHandler } from "hono";
 import { env } from "hono/adapter";
-import { ErrorCode, createError } from "../types";
+import { ErrorCode, createError } from "../types/error";
+import { JwtPayload, decode, verify } from "../utils/jwt";
 
 declare module "hono" {
     interface ContextVariableMap {

@@ -40,6 +40,12 @@ export default defineNuxtConfig({
         },
     },
 
+    runtimeConfig: {
+        public: {
+            storageUrl: "https://storage.coverbase.co",
+        },
+    },
+
     $production: {
         nitro: {
             preset: "cloudflare-pages",

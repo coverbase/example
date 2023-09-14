@@ -2,6 +2,8 @@ export {
     accountRelations,
     accounts,
     countries,
+    fileRelations,
+    files,
     languages,
     memberRelations,
     members,

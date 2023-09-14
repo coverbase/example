@@ -1,11 +1,12 @@
-import { ErrorCode, createError, validation } from "@coverbase/http";
-import { sign } from "@coverbase/jwt";
 import { accounts, createSessionSchema, sessions } from "@coverbase/schema";
 import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
+import { validation } from "../middleware/validation";
+import { ErrorCode, createError } from "../types/error";
 import { generateToken } from "../utils/account";
 import { useDatabase } from "../utils/database";
+import { sign } from "../utils/jwt";
 import { sendMail } from "../utils/mail";
 
 export function mapSessionEndpoints(app: Hono) {

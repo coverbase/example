@@ -1,4 +1,3 @@
-import { ErrorCode, auth, createError, validation } from "@coverbase/http";
 import {
     accounts,
     createMemberSchema,
@@ -9,6 +8,9 @@ import {
 } from "@coverbase/schema";
 import { and, asc, eq } from "drizzle-orm";
 import { Hono } from "hono";
+import { auth } from "../middleware/auth";
+import { validation } from "../middleware/validation";
+import { ErrorCode, createError } from "../types/error";
 import { useDatabase } from "../utils/database";
 
 export function mapMemberEndpoints(app: Hono) {

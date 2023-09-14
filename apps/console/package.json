@@ -16,7 +16,6 @@
         "wrangler": "^3.7.0"
     },
     "dependencies": {
-        "@coverbase/http": "*",
         "@coverbase/ui": "*",
         "@coverbase/schema": "*",
         "@coverbase/client": "*",

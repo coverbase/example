@@ -1,7 +1,7 @@
 import { Env, MiddlewareHandler, ValidationTargets } from "hono";
 import { parseBody } from "hono/utils/body";
 import { BaseSchema, Output, parse } from "valibot";
-import { ErrorCode, createError } from "../types";
+import { ErrorCode, createError } from "../types/error";
 
 export function validation<
     T extends BaseSchema,

@@ -1,6 +1,7 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { AccountEntity, accounts } from "./account";
+import { FileEntity, files } from "./file";
 import { MemberEntity, members } from "./member";
 import { RoleEntity, roles } from "./role";
 
@@ -15,6 +16,7 @@ export const projects = pgTable("Projects", {
 });
 
 export const projectRelations = relations(projects, ({ one, many }) => ({
+    files: many(files),
     members: many(members),
     roles: many(roles),
 
@@ -25,6 +27,7 @@ export const projectRelations = relations(projects, ({ one, many }) => ({
 }));
 
 export type ProjectEntity = InferSelectModel<typeof projects> & {
+    files?: Array<FileEntity>;
     members?: Array<MemberEntity>;
     roles?: Array<RoleEntity>;
     account?: AccountEntity;

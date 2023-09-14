@@ -8,5 +8,9 @@ routes = [
     { pattern = "api.coverbase.co", custom_domain = true, zone_id = "bedfb75536606b29b5266fefc8c6e343" }
 ]
 
+r2_buckets = [
+    { binding = "STORAGE", bucket_name = "storage", preview_bucket_name = "development-storage" },
+]
+
 [dev]
 port = 5000
