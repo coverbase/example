@@ -1,6 +1,6 @@
 import { CreateFileRequest, FileEntity, UpdateFileRequest } from "@coverbase/schema";
 import { ofetch } from "ofetch";
-import { ClientOptions, formInterceptor, jsonInterceptor } from "../utils";
+import { ClientOptions, formInterceptor, jsonInterceptor } from "./http";
 
 export function createFileClient(options: ClientOptions) {
     return {

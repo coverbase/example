@@ -1,6 +1,6 @@
 import { AccountEntity, CreateAccountRequest, UpdateAccountRequest } from "@coverbase/schema";
 import { ofetch } from "ofetch";
-import { ClientOptions, jsonInterceptor } from "../utils";
+import { ClientOptions, jsonInterceptor } from "./http";
 
 export function createAccountClient(options: ClientOptions) {
     return {

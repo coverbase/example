@@ -1,9 +1,18 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { Output, object, optional, string } from "valibot";
 import { AccountEntity, accounts } from "./account";
 import { FileEntity, files } from "./file";
 import { MemberEntity, members } from "./member";
 import { RoleEntity, roles } from "./role";
+
+export const createProjectSchema = object({
+    name: string(),
+});
+
+export const updateProjectSchema = object({
+    name: optional(string()),
+});
 
 export const projects = pgTable("Projects", {
     id: uuid("Id").primaryKey().defaultRandom(),
@@ -25,6 +34,10 @@ export const projectRelations = relations(projects, ({ one, many }) => ({
         references: [accounts.id],
     }),
 }));
+
+export type CreateProjectRequest = Output<typeof createProjectSchema>;
+
+export type UpdateProjectRequest = Output<typeof updateProjectSchema>;
 
 export type ProjectEntity = InferSelectModel<typeof projects> & {
     files?: Array<FileEntity>;

@@ -1,5 +1,9 @@
 import { FetchContext } from "ofetch";
-import { ClientOptions } from "./client";
+
+export type ClientOptions = {
+    baseUrl: string;
+    accessToken?: string;
+};
 
 export function jsonInterceptor(options: ClientOptions) {
     return (context: FetchContext) => {

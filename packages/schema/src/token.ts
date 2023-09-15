@@ -1,6 +1,15 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { Output, object, optional, string } from "valibot";
 import { AccountEntity, accounts } from "./account";
+
+export const createTokenSchema = object({
+    name: string(),
+});
+
+export const updateTokenSchema = object({
+    name: optional(string()),
+});
 
 export const tokens = pgTable("Tokens", {
     id: uuid("Id").primaryKey().defaultRandom(),
@@ -19,6 +28,10 @@ export const tokenRelations = relations(tokens, ({ one }) => ({
         references: [accounts.id],
     }),
 }));
+
+export type CreateTokenRequest = Output<typeof createTokenSchema>;
+
+export type UpdateTokenRequest = Output<typeof updateTokenSchema>;
 
 export type TokenEntity = InferSelectModel<typeof tokens> & {
     account?: AccountEntity;

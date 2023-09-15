@@ -1,6 +1,6 @@
 import { CreateSessionRequest, SessionEntity } from "@coverbase/schema";
 import { ofetch } from "ofetch";
-import { ClientOptions, jsonInterceptor, textInterceptor } from "../utils";
+import { ClientOptions, jsonInterceptor, textInterceptor } from "./http";
 
 export function createSessionClient(options: ClientOptions) {
     return {

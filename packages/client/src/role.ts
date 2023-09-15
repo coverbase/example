@@ -1,6 +1,6 @@
 import { RoleEntity } from "@coverbase/schema";
 import { ofetch } from "ofetch";
-import { ClientOptions, jsonInterceptor } from "../utils";
+import { ClientOptions, jsonInterceptor } from "./http";
 
 export function createRoleClient(options: ClientOptions) {
     return {

@@ -1,6 +1,6 @@
 import { CreateMemberRequest, MemberEntity, UpdateMemberRequest } from "@coverbase/schema";
 import { ofetch } from "ofetch";
-import { ClientOptions, jsonInterceptor } from "../utils";
+import { ClientOptions, jsonInterceptor } from "./http";
 
 export function createMemberClient(options: ClientOptions) {
     return {
