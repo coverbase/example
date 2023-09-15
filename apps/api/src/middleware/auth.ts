@@ -1,11 +1,12 @@
+import { SessionEntity, sessions } from "@coverbase/schema";
+import { eq } from "drizzle-orm";
 import { Env, Input, MiddlewareHandler } from "hono";
-import { env } from "hono/adapter";
 import { ErrorCode, createError } from "../types/error";
-import { JwtPayload, decode, verify } from "../utils/jwt";
+import { useDatabase } from "../utils/database";
 
 declare module "hono" {
     interface ContextVariableMap {
-        auth: JwtPayload;
+        session: SessionEntity;
     }
 }
 
@@ -15,18 +16,22 @@ export function auth<
     I extends Input = {},
 >(): MiddlewareHandler<E, P, I> {
     return async (context, next) => {
-        const { SECRET } = env(context);
+        const db = useDatabase(context);
 
-        const header = context.req.headers.get("Authorization");
+        const header = context.req.raw.headers.get("Authorization");
 
         if (header) {
-            const token = header.replace(/Bearer\s+/i, "");
-            const isValid = await verify(token, SECRET);
+            const secret = header.replace(/Bearer\s+/i, "");
 
-            if (isValid) {
-                const { payload } = decode(token);
+            const session = await db.query.sessions.findFirst({
+                where: eq(sessions.secret, secret),
+                with: {
+                    account: true,
+                },
+            });
 
-                context.set("auth", payload);
+            if (session) {
+                context.set("session", session);
             } else {
                 throw createError({
                     code: ErrorCode.UNAUTHORIZED,

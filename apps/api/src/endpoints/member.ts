@@ -22,11 +22,11 @@ export function mapMemberEndpoints(app: Hono) {
             const db = useDatabase(context);
 
             const { projectId } = context.req.param();
-            const { sub } = context.get("auth");
+            const { accountId } = context.get("session");
             const { emailAddress, roleId } = context.req.valid("json");
 
             const project = await db.query.projects.findFirst({
-                where: and(eq(projects.id, projectId), eq(projects.accountId, sub)),
+                where: and(eq(projects.id, projectId), eq(projects.accountId, accountId)),
             });
 
             const role = await db.query.roles.findFirst({
@@ -64,7 +64,7 @@ export function mapMemberEndpoints(app: Hono) {
             const db = useDatabase(context);
 
             const { memberId } = context.req.param();
-            const { sub } = context.get("auth");
+            const { accountId } = context.get("session");
             const { roleId } = context.req.valid("json");
 
             const member = await db.query.members.findFirst({
@@ -93,7 +93,7 @@ export function mapMemberEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { memberId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const member = await db.query.members.findFirst({
             where: eq(members.id, memberId),
@@ -117,7 +117,7 @@ export function mapMemberEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { memberId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const member = await db.query.members.findFirst({
             where: eq(members.id, memberId),
@@ -140,7 +140,7 @@ export function mapMemberEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { projectId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const memberList = await db.query.members.findMany({
             where: eq(members.projectId, projectId),

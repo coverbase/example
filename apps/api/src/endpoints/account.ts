@@ -43,11 +43,11 @@ export function mapAccountEndpoints(app: Hono) {
     app.put("/v1/accounts", auth(), validation("json", updateAccountSchema), async (context) => {
         const db = useDatabase(context);
 
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
         const { firstName, lastName, emailAddress } = context.req.valid("json");
 
         const account = await db.query.accounts.findFirst({
-            where: eq(accounts.id, sub),
+            where: eq(accounts.id, accountId),
         });
 
         if (account) {
@@ -72,10 +72,10 @@ export function mapAccountEndpoints(app: Hono) {
     app.delete("/v1/accounts", auth(), async (context) => {
         const db = useDatabase(context);
 
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const account = await db.query.accounts.findFirst({
-            where: eq(accounts.id, sub),
+            where: eq(accounts.id, accountId),
         });
 
         if (account) {
@@ -98,10 +98,10 @@ export function mapAccountEndpoints(app: Hono) {
     app.get("/v1/accounts", auth(), async (context) => {
         const db = useDatabase(context);
 
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const account = await db.query.accounts.findFirst({
-            where: eq(accounts.id, sub),
+            where: eq(accounts.id, accountId),
         });
 
         if (account) {

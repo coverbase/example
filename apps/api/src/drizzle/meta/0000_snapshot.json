@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "6d991afd-3f01-420b-ac8d-97bd982324a3",
+  "id": "49da8c03-0bb7-4bcc-9adf-80b7aea7d8bb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Accounts": {
@@ -78,6 +78,68 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Files": {
+      "name": "Files",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Type": {
+          "name": "Type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Size": {
+          "name": "Size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ProjectId": {
+          "name": "ProjectId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Files_ProjectId_Projects_Id_fk": {
+          "name": "Files_ProjectId_Projects_Id_fk",
+          "tableFrom": "Files",
+          "tableTo": "Projects",
+          "columnsFrom": [
+            "ProjectId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -303,11 +365,18 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "Token": {
-          "name": "Token",
+        "Secret": {
+          "name": "Secret",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "Created": {
+          "name": "Created",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         },
         "AccountId": {
           "name": "AccountId",

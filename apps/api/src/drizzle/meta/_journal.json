@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1694682500452,
-      "tag": "0000_curious_steel_serpent",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1694690744987,
-      "tag": "0001_conscious_shape",
+      "when": 1694767672807,
+      "tag": "0000_simple_ogun",
       "breakpoints": true
     }
   ]

@@ -17,11 +17,11 @@ export function mapFileEndpoints(app: Hono) {
             const { putFile } = useStorage(context);
 
             const { projectId } = context.req.param();
-            const { sub } = context.get("auth");
+            const { accountId } = context.get("session");
             const { name, blob } = context.req.valid("form");
 
             const project = await db.query.projects.findFirst({
-                where: and(eq(projects.id, projectId), eq(projects.accountId, sub)),
+                where: and(eq(projects.id, projectId), eq(projects.accountId, accountId)),
             });
 
             if (project) {
@@ -51,7 +51,7 @@ export function mapFileEndpoints(app: Hono) {
         const { putFile } = useStorage(context);
 
         const { fileId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
         const { name, blob } = context.req.valid("form");
 
         const file = await db.query.files.findFirst({
@@ -85,8 +85,7 @@ export function mapFileEndpoints(app: Hono) {
         const { deleteFile } = useStorage(context);
 
         const { fileId } = context.req.param();
-        const { sub } = context.get("auth");
-
+        const { accountId } = context.get("session");
         const file = await db.query.files.findFirst({
             where: eq(files.id, fileId),
         });
@@ -108,7 +107,7 @@ export function mapFileEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { fileId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const file = await db.query.files.findFirst({
             where: eq(files.id, fileId),
@@ -127,7 +126,7 @@ export function mapFileEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { projectId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const fileList = await db.query.files.findMany({
             where: eq(files.projectId, projectId),

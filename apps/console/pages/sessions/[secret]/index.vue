@@ -6,11 +6,12 @@ definePageMeta({
 });
 
 const accessToken = useAccessToken();
+const route = useRoute();
 
-const data = await getSession();
+const secret = route.params.secret as string;
 
-if (data) {
-    accessToken.value = data;
+if (secret) {
+    accessToken.value = secret;
 
     navigateTo("/");
 }

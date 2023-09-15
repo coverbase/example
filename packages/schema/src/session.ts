@@ -1,5 +1,5 @@
 import { InferSelectModel, relations } from "drizzle-orm";
-import { pgTable, uuid, varchar } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { Output, email, object, string } from "valibot";
 import { AccountEntity, accounts } from "./account";
 
@@ -9,7 +9,8 @@ export const createSessionSchema = object({
 
 export const sessions = pgTable("Session", {
     id: uuid("Id").primaryKey().defaultRandom(),
-    token: varchar("Token").notNull(),
+    secret: varchar("Secret").notNull(),
+    created: timestamp("Created", { withTimezone: true }).notNull().defaultNow(),
 
     accountId: uuid("AccountId")
         .notNull()

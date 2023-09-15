@@ -45,12 +45,3 @@ export function deleteSession() {
         loading.value = false;
     }
 }
-
-export function getSession() {
-    const route = useRoute();
-
-    return $fetch<string>(`/sessions/${route.params.sessionId}`, {
-        method: "GET",
-        onRequest: requestInterceptorText,
-    });
-}

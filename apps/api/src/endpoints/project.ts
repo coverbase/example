@@ -16,14 +16,14 @@ export function mapProjectEndpoints(app: Hono) {
     app.post("/v1/projects", auth(), validation("json", createProjectSchema), async (context) => {
         const db = useDatabase(context);
 
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
         const { name } = context.req.valid("json");
 
         const [projectCreate] = await db
             .insert(projects)
             .values({
                 name: name,
-                accountId: sub,
+                accountId: accountId,
             })
             .returning();
 
@@ -36,7 +36,7 @@ export function mapProjectEndpoints(app: Hono) {
             .returning();
 
         await db.insert(members).values({
-            accountId: sub,
+            accountId: accountId,
             projectId: projectCreate.id,
             roleId: roleCreate.id,
         });
@@ -52,11 +52,11 @@ export function mapProjectEndpoints(app: Hono) {
             const db = useDatabase(context);
 
             const { projectId } = context.req.param();
-            const { sub } = context.get("auth");
+            const { accountId } = context.get("session");
             const { name } = context.req.valid("json");
 
             const project = await db.query.projects.findFirst({
-                where: and(eq(projects.id, projectId), eq(projects.accountId, sub)),
+                where: and(eq(projects.id, projectId), eq(projects.accountId, accountId)),
             });
 
             if (project) {
@@ -81,10 +81,10 @@ export function mapProjectEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { projectId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const project = await db.query.projects.findFirst({
-            where: and(eq(projects.id, projectId), eq(projects.accountId, sub)),
+            where: and(eq(projects.id, projectId), eq(projects.accountId, accountId)),
         });
 
         if (project) {
@@ -105,10 +105,10 @@ export function mapProjectEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { projectId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const project = await db.query.projects.findFirst({
-            where: and(eq(projects.id, projectId), eq(projects.accountId, sub)),
+            where: and(eq(projects.id, projectId), eq(projects.accountId, accountId)),
             with: {
                 account: true,
             },
@@ -126,10 +126,10 @@ export function mapProjectEndpoints(app: Hono) {
     app.get("/v1/projects", auth(), async (context) => {
         const db = useDatabase(context);
 
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const projectList = await db.query.projects.findMany({
-            where: eq(projects.accountId, sub),
+            where: eq(projects.accountId, accountId),
             orderBy: asc(projects.created),
             with: {
                 account: true,

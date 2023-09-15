@@ -9,7 +9,7 @@ export function mapRoleEndpoints(app: Hono) {
         const db = useDatabase(context);
 
         const { projectId } = context.req.param();
-        const { sub } = context.get("auth");
+        const { accountId } = context.get("session");
 
         const roleList = await db.query.roles.findMany({
             where: eq(roles.projectId, projectId),

@@ -2,5 +2,13 @@
     "unocss.root": ".",
     "conventionalCommits.gitmoji": false,
     "conventionalCommits.promptBody": false,
-    "conventionalCommits.scopes": ["landing-page", "console", "ui", "api", "http", "site", "schema"]
+    "conventionalCommits.scopes": [
+        "api",
+        "console",
+        "landing-page",
+        "site",
+        "client",
+        "schema",
+        "ui"
+    ]
 }
