@@ -11,5 +11,17 @@ export function createSessionClient(options: ClientOptions) {
                 body: request,
             });
         },
+        delete(sessionId: string) {
+            return ofetch<SessionEntity>(`/sessions/${sessionId}`, {
+                method: "DELETE",
+                onRequest: jsonInterceptor(options),
+            });
+        },
+        list() {
+            return ofetch<Array<SessionEntity>>("/sessions", {
+                method: "GET",
+                onRequest: jsonInterceptor(options),
+            });
+        },
     };
 }

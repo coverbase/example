@@ -8,7 +8,7 @@
 
                 <Divider variant="vertical" />
 
-                <Button variant="text" :loading="sessionLoading" @click="deleteSession">
+                <Button variant="text" :loading="sessionLoading" @click="handleLogout">
                     <IconLogout width="20" height="20" />
                 </Button>
             </div>
@@ -28,4 +28,12 @@ defineProps<{
 
 const sessionLoading = useSessionLoading();
 const { data } = getAccount();
+
+function handleLogout() {
+    const accessToken = useAccessToken();
+
+    accessToken.value = "";
+
+    navigateTo("/sign-in");
+}
 </script>

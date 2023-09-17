@@ -31,17 +31,22 @@ export async function createSession(form: CreateSessionRequest) {
     }
 }
 
-export function deleteSession() {
-    const loading = useSessionLoading();
+export async function deleteSession(sessionId: string) {
+    const sessionLoading = useSessionLoading();
+    const client = useSessionClient();
 
-    loading.value = true;
+    sessionLoading.value = true;
     try {
-        const accessToken = useAccessToken();
+        await client.delete(sessionId);
 
-        accessToken.value = "";
-
-        navigateTo("/sign-in");
+        await refreshNuxtData("Sessions");
     } finally {
-        loading.value = false;
+        sessionLoading.value = false;
     }
+}
+
+export function listSessions() {
+    const client = useSessionClient();
+
+    return useAsyncData("Sessions", () => client.list());
 }
