@@ -14,12 +14,11 @@ import { useDatabase } from "../utils/database";
 
 export function mapAccountEndpoints(app: Hono) {
     app.post("/v1/accounts", validation("json", createAccountSchema), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const request = context.req.valid("json");
 
-        const { firstName, lastName, emailAddress } = context.req.valid("json");
-
-        const account = await db.query.accounts.findFirst({
-            where: eq(accounts.emailAddress, emailAddress),
+        const account = await database.query.accounts.findFirst({
+            where: eq(accounts.emailAddress, request.emailAddress),
         });
 
         if (account) {
@@ -28,12 +27,12 @@ export function mapAccountEndpoints(app: Hono) {
             });
         }
 
-        const [accountCreate] = await db
+        const [accountCreate] = await database
             .insert(accounts)
             .values({
-                firstName: firstName,
-                lastName: lastName,
-                emailAddress: emailAddress,
+                firstName: request.firstName,
+                lastName: request.lastName,
+                emailAddress: request.emailAddress,
             })
             .returning();
 
@@ -41,22 +40,21 @@ export function mapAccountEndpoints(app: Hono) {
     });
 
     app.put("/v1/accounts", auth(), validation("json", updateAccountSchema), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const session = context.get("session");
+        const request = context.req.valid("json");
 
-        const { accountId } = context.get("session");
-        const { firstName, lastName, emailAddress } = context.req.valid("json");
-
-        const account = await db.query.accounts.findFirst({
-            where: eq(accounts.id, accountId),
+        const account = await database.query.accounts.findFirst({
+            where: eq(accounts.id, session.accountId),
         });
 
         if (account) {
-            const [accountUpdate] = await db
+            const [accountUpdate] = await database
                 .update(accounts)
                 .set({
-                    firstName: firstName,
-                    lastName: lastName,
-                    emailAddress: emailAddress,
+                    firstName: request.firstName,
+                    lastName: request.lastName,
+                    emailAddress: request.emailAddress,
                 })
                 .where(eq(accounts.id, account.id))
                 .returning();
@@ -70,19 +68,18 @@ export function mapAccountEndpoints(app: Hono) {
     });
 
     app.delete("/v1/accounts", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const session = context.get("session");
 
-        const { accountId } = context.get("session");
-
-        const account = await db.query.accounts.findFirst({
-            where: eq(accounts.id, accountId),
+        const account = await database.query.accounts.findFirst({
+            where: eq(accounts.id, session.accountId),
         });
 
         if (account) {
-            await db.delete(sessions).where(eq(accounts.id, account.id));
-            await db.delete(tokens).where(eq(accounts.id, account.id));
+            await database.delete(sessions).where(eq(accounts.id, account.id));
+            await database.delete(tokens).where(eq(accounts.id, account.id));
 
-            const [accountDelete] = await db
+            const [accountDelete] = await database
                 .delete(accounts)
                 .where(eq(accounts.id, account.id))
                 .returning();
@@ -96,12 +93,11 @@ export function mapAccountEndpoints(app: Hono) {
     });
 
     app.get("/v1/accounts", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const session = context.get("session");
 
-        const { accountId } = context.get("session");
-
-        const account = await db.query.accounts.findFirst({
-            where: eq(accounts.id, accountId),
+        const account = await database.query.accounts.findFirst({
+            where: eq(accounts.id, session.accountId),
         });
 
         if (account) {

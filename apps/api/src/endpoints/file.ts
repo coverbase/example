@@ -13,29 +13,31 @@ export function mapFileEndpoints(app: Hono) {
         auth(),
         validation("form", createFileSchema),
         async (context) => {
-            const db = useDatabase(context);
-            const { putFile } = useStorage(context);
+            const database = useDatabase(context);
+            const storage = useStorage(context);
+            const params = context.req.param();
+            const session = context.get("session");
+            const request = context.req.valid("form");
 
-            const { projectId } = context.req.param();
-            const { accountId } = context.get("session");
-            const { name, blob } = context.req.valid("form");
-
-            const project = await db.query.projects.findFirst({
-                where: and(eq(projects.id, projectId), eq(projects.accountId, accountId)),
+            const project = await database.query.projects.findFirst({
+                where: and(
+                    eq(projects.id, params.projectId),
+                    eq(projects.accountId, session.accountId)
+                ),
             });
 
             if (project) {
-                const [fileCreate] = await db
+                const [fileCreate] = await database
                     .insert(files)
                     .values({
-                        name: name,
-                        type: blob?.type,
-                        size: blob?.size,
-                        projectId: projectId,
+                        name: request.name,
+                        type: request.blob?.type,
+                        size: request.blob?.size,
+                        projectId: params.projectId,
                     })
                     .returning();
 
-                await putFile(fileCreate, blob);
+                await storage.createOrUpdateFile(fileCreate, request.blob);
 
                 return context.json(fileCreate);
             }
@@ -47,29 +49,28 @@ export function mapFileEndpoints(app: Hono) {
     );
 
     app.put("/v1/files/:fileId", auth(), validation("form", updateFileSchema), async (context) => {
-        const db = useDatabase(context);
-        const { putFile } = useStorage(context);
+        const database = useDatabase(context);
+        const storage = useStorage(context);
+        const params = context.req.param();
+        const session = context.get("session");
+        const request = context.req.valid("form");
 
-        const { fileId } = context.req.param();
-        const { accountId } = context.get("session");
-        const { name, blob } = context.req.valid("form");
-
-        const file = await db.query.files.findFirst({
-            where: eq(files.id, fileId),
+        const file = await database.query.files.findFirst({
+            where: eq(files.id, params.fileId),
         });
 
         if (file) {
-            const [fileUpdate] = await db
+            const [fileUpdate] = await database
                 .update(files)
                 .set({
-                    name: name,
-                    type: blob?.type,
-                    size: blob?.size,
+                    name: request.name,
+                    type: request.blob?.type,
+                    size: request.blob?.size,
                 })
                 .returning();
 
-            if (blob) {
-                await putFile(fileUpdate, blob);
+            if (request.blob) {
+                await storage.createOrUpdateFile(fileUpdate, request.blob);
             }
 
             return context.json(fileUpdate);
@@ -81,19 +82,22 @@ export function mapFileEndpoints(app: Hono) {
     });
 
     app.delete("/v1/files/:fileId", auth(), async (context) => {
-        const db = useDatabase(context);
-        const { deleteFile } = useStorage(context);
+        const database = useDatabase(context);
+        const storage = useStorage(context);
+        const params = context.req.param();
+        const session = context.get("session");
 
-        const { fileId } = context.req.param();
-        const { accountId } = context.get("session");
-        const file = await db.query.files.findFirst({
-            where: eq(files.id, fileId),
+        const file = await database.query.files.findFirst({
+            where: eq(files.id, params.fileId),
         });
 
         if (file) {
-            const [fileDelete] = await db.delete(files).where(eq(files.id, file.id)).returning();
+            const [fileDelete] = await database
+                .delete(files)
+                .where(eq(files.id, file.id))
+                .returning();
 
-            await deleteFile(fileDelete);
+            await storage.deleteFile(fileDelete);
 
             return context.json(fileDelete);
         }
@@ -104,13 +108,12 @@ export function mapFileEndpoints(app: Hono) {
     });
 
     app.get("/v1/files/:fileId", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const params = context.req.param();
+        const session = context.get("session");
 
-        const { fileId } = context.req.param();
-        const { accountId } = context.get("session");
-
-        const file = await db.query.files.findFirst({
-            where: eq(files.id, fileId),
+        const file = await database.query.files.findFirst({
+            where: eq(files.id, params.fileId),
         });
 
         if (file) {
@@ -123,13 +126,12 @@ export function mapFileEndpoints(app: Hono) {
     });
 
     app.get("/v1/projects/:projectId/files", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const params = context.req.param();
+        const session = context.get("session");
 
-        const { projectId } = context.req.param();
-        const { accountId } = context.get("session");
-
-        const fileList = await db.query.files.findMany({
-            where: eq(files.projectId, projectId),
+        const fileList = await database.query.files.findMany({
+            where: eq(files.projectId, params.projectId),
             orderBy: asc(files.created),
         });
 

@@ -16,14 +16,13 @@ export function auth<
     I extends Input = {},
 >(): MiddlewareHandler<E, P, I> {
     return async (context, next) => {
-        const db = useDatabase(context);
-
+        const database = useDatabase(context);
         const header = context.req.raw.headers.get("Authorization");
 
         if (header) {
             const secret = header.replace(/Bearer\s+/i, "");
 
-            const session = await db.query.sessions.findFirst({
+            const session = await database.query.sessions.findFirst({
                 where: eq(sessions.secret, secret),
                 with: {
                     account: true,

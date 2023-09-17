@@ -6,13 +6,12 @@ import { useDatabase } from "../utils/database";
 
 export function mapRoleEndpoints(app: Hono) {
     app.get("/projects/:projectId/roles", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const params = context.req.param();
+        const session = context.get("session");
 
-        const { projectId } = context.req.param();
-        const { accountId } = context.get("session");
-
-        const roleList = await db.query.roles.findMany({
-            where: eq(roles.projectId, projectId),
+        const roleList = await database.query.roles.findMany({
+            where: eq(roles.projectId, params.projectId),
         });
 
         return context.json(roleList);

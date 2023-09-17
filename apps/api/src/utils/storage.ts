@@ -6,20 +6,16 @@ type Bindings = {
 };
 
 export function useStorage(context: Context<{ Bindings: Bindings }>) {
-    async function putFile(file: FileEntity, blob: Blob) {
-        await context.env.STORAGE.put(file.id, blob.stream(), {
-            httpMetadata: {
-                contentType: file.type,
-            },
-        });
-    }
-
-    async function deleteFile(file: FileEntity) {
-        await context.env.STORAGE.delete(file.id);
-    }
-
     return {
-        putFile,
-        deleteFile,
+        async createOrUpdateFile(file: FileEntity, blob: Blob) {
+            await context.env.STORAGE.put(file.id, blob.stream(), {
+                httpMetadata: {
+                    contentType: file.type,
+                },
+            });
+        },
+        async deleteFile(file: FileEntity) {
+            await context.env.STORAGE.delete(file.id);
+        },
     };
 }

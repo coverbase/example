@@ -5,11 +5,11 @@ import postgres from "postgres";
 
 config({ path: ".dev.vars" });
 
-const db = drizzle(postgres(`${process.env.DATABASE_URL}`, { ssl: "require", max: 1 }));
+const database = drizzle(postgres(`${process.env.DATABASE_URL}`, { ssl: "require", max: 1 }));
 
 const main = async () => {
     try {
-        await migrate(db, { migrationsFolder: "src/drizzle" });
+        await migrate(database, { migrationsFolder: "src/drizzle" });
 
         console.log("Migration complete");
     } catch (error) {

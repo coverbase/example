@@ -9,17 +9,16 @@ import { useDatabase } from "../utils/database";
 
 export function mapTokenEndpoints(app: Hono) {
     app.post("/v1/tokens", auth(), validation("json", createTokenSchema), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const session = context.get("session");
+        const request = context.req.valid("json");
 
-        const { accountId } = context.get("session");
-        const { name } = context.req.valid("json");
-
-        const [tokenCreate] = await db
+        const [tokenCreate] = await database
             .insert(tokens)
             .values({
-                name: name,
+                name: request.name,
                 secret: generateToken(),
-                accountId: accountId,
+                accountId: session.accountId,
             })
             .returning();
 
@@ -31,24 +30,23 @@ export function mapTokenEndpoints(app: Hono) {
         auth(),
         validation("json", updateTokenSchema),
         async (context) => {
-            const db = useDatabase(context);
+            const database = useDatabase(context);
+            const params = context.req.param();
+            const session = context.get("session");
+            const request = context.req.valid("json");
 
-            const { tokenId } = context.req.param();
-            const { accountId } = context.get("session");
-            const { name } = context.req.valid("json");
-
-            const token = await db.query.tokens.findFirst({
-                where: and(eq(tokens.id, tokenId), eq(tokens.accountId, accountId)),
+            const token = await database.query.tokens.findFirst({
+                where: and(eq(tokens.id, params.tokenId), eq(tokens.accountId, session.accountId)),
                 columns: {
                     secret: false,
                 },
             });
 
             if (token) {
-                const [tokenUpdate] = await db
+                const [tokenUpdate] = await database
                     .update(tokens)
                     .set({
-                        name: name,
+                        name: request.name,
                     })
                     .where(eq(tokens.id, token.id))
                     .returning();
@@ -63,20 +61,19 @@ export function mapTokenEndpoints(app: Hono) {
     );
 
     app.delete("/v1/tokens/:tokenId", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const params = context.req.param();
+        const session = context.get("session");
 
-        const { tokenId } = context.req.param();
-        const { accountId } = context.get("session");
-
-        const token = await db.query.tokens.findFirst({
-            where: and(eq(tokens.id, tokenId), eq(tokens.accountId, accountId)),
+        const token = await database.query.tokens.findFirst({
+            where: and(eq(tokens.id, params.tokenId), eq(tokens.accountId, session.accountId)),
             columns: {
                 secret: false,
             },
         });
 
         if (token) {
-            const [tokenDelete] = await db
+            const [tokenDelete] = await database
                 .delete(tokens)
                 .where(eq(tokens.id, token.id))
                 .returning();
@@ -90,13 +87,12 @@ export function mapTokenEndpoints(app: Hono) {
     });
 
     app.get("/v1/tokens/:tokenId", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const params = context.req.param();
+        const session = context.get("session");
 
-        const { tokenId } = context.req.param();
-        const { accountId } = context.get("session");
-
-        const token = await db.query.tokens.findFirst({
-            where: and(eq(tokens.id, tokenId), eq(tokens.accountId, accountId)),
+        const token = await database.query.tokens.findFirst({
+            where: and(eq(tokens.id, params.tokenId), eq(tokens.accountId, session.accountId)),
             with: {
                 account: true,
             },
@@ -115,12 +111,11 @@ export function mapTokenEndpoints(app: Hono) {
     });
 
     app.get("/v1/tokens", auth(), async (context) => {
-        const db = useDatabase(context);
+        const database = useDatabase(context);
+        const session = context.get("session");
 
-        const { accountId } = context.get("session");
-
-        const tokenList = await db.query.tokens.findMany({
-            where: and(eq(tokens.accountId, accountId)),
+        const tokenList = await database.query.tokens.findMany({
+            where: and(eq(tokens.accountId, session.accountId)),
             orderBy: asc(tokens.created),
             with: {
                 account: true,
