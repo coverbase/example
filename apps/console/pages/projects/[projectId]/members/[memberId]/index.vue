@@ -72,4 +72,8 @@ watch(member, (value) => {
         };
     }
 });
+
+useSeoMeta({
+    title: "Members - Project - Coverbase",
+});
 </script>

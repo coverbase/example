@@ -27,7 +27,7 @@ import { SessionEntity } from "@coverbase/schema";
 import { IconTrash } from "@tabler/icons-vue";
 
 definePageMeta({
-    layout: "account",
+    layout: "settings",
     middleware: ["auth"],
 });
 
@@ -39,6 +39,6 @@ async function handleDelete(session: SessionEntity) {
 }
 
 useSeoMeta({
-    title: "Sessions - Account - Coverbase",
+    title: "Sessions - Settings - Coverbase",
 });
 </script>

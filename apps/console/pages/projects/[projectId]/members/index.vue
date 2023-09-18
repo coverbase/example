@@ -53,4 +53,8 @@ definePageMeta({
 });
 
 const { data: members } = listMembers();
+
+useSeoMeta({
+    title: "Members - Project - Coverbase",
+});
 </script>

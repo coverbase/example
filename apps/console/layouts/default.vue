@@ -2,7 +2,7 @@
     <main class="grid grid-layout-header h-screen overflow-hidden">
         <UiHeader :title="title">
             <div class="flex gap-2">
-                <Button variant="text" to="/account/general" :as="NuxtLink">
+                <Button variant="text" to="/settings" :as="NuxtLink">
                     <span class="px-2"> {{ data?.firstName }} {{ data?.lastName }} </span>
                 </Button>
 

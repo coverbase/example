@@ -31,7 +31,7 @@ import { DialogDelete } from "#components";
 import { UpdateAccountRequest } from "@coverbase/schema";
 
 definePageMeta({
-    layout: "account",
+    layout: "settings",
     middleware: ["auth"],
 });
 
@@ -62,6 +62,6 @@ watch(account, (value) => {
 });
 
 useSeoMeta({
-    title: "General - Account - Coverbase",
+    title: "Settings - Coverbase",
 });
 </script>

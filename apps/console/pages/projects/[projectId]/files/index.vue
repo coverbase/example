@@ -57,4 +57,8 @@ const { data: files } = listFiles();
 async function handleDelete(file: FileEntity) {
     await deleteFile(file.id);
 }
+
+useSeoMeta({
+    title: "Files - Project - Coverbase",
+});
 </script>

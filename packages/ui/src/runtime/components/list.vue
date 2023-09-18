@@ -1,12 +1,9 @@
 <template>
-    <div
-        class="bg-white border border-slate-200 divide-y divide-slate-200 rounded"
-        v-if="items && items.length > 0"
-    >
+    <Box class="divide-y divide-slate-200" v-if="items && items.length > 0">
         <slot :item="item" v-for="item in items">
             {{ item }}
         </slot>
-    </div>
+    </Box>
     <Empty v-else>
         {{ empty }}
     </Empty>

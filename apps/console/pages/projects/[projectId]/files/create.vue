@@ -43,4 +43,8 @@ async function handleCreate() {
 
     navigateTo(`/projects/${route.params.projectId}/files`);
 }
+
+useSeoMeta({
+    title: "Files - Project - Coverbase",
+});
 </script>

@@ -9,4 +9,8 @@ definePageMeta({
 });
 
 const { data: account } = getAccount();
+
+useSeoMeta({
+    title: "Overview - Project - Coverbase",
+});
 </script>

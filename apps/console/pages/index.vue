@@ -46,6 +46,6 @@ definePageMeta({
 const { data: projects } = listProjects();
 
 useSeoMeta({
-    title: "Index - Coverbase",
+    title: "Projects - Coverbase",
 });
 </script>

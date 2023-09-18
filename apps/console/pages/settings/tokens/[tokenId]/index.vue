@@ -3,11 +3,11 @@
         :routes="[
             {
                 name: 'Tokens',
-                to: '/account/tokens',
+                to: '/settings/tokens',
             },
             {
                 name: token?.name ?? '',
-                to: `/account/tokens/${token?.id}`,
+                to: `/settings/tokens/${token?.id}`,
             },
         ]"
     />
@@ -40,7 +40,7 @@ import { DialogDelete } from "#components";
 import { UpdateTokenRequest } from "@coverbase/schema";
 
 definePageMeta({
-    layout: "account",
+    layout: "settings",
     middleware: ["auth"],
 });
 
@@ -59,7 +59,7 @@ async function handleUpdate() {
 async function handleDelete() {
     await deleteToken();
 
-    navigateTo("/account/tokens");
+    navigateTo("/settings/tokens");
 }
 
 watch(token, (value) => {
@@ -71,6 +71,6 @@ watch(token, (value) => {
 });
 
 useSeoMeta({
-    title: "Tokens - Account - Coverbase",
+    title: "Tokens - Settings - Coverbase",
 });
 </script>

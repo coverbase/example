@@ -41,4 +41,8 @@ async function handleCreate() {
 
     navigateTo("/");
 }
+
+useSeoMeta({
+    title: "Projects - Coverbase",
+});
 </script>

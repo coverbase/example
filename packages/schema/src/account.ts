@@ -1,6 +1,7 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { Output, email, object, optional, string } from "valibot";
+import { ApplicationEntity, applications } from "./application";
 import { MemberEntity, members } from "./member";
 import { ProjectEntity, projects } from "./project";
 import { SessionEntity, sessions } from "./session";
@@ -27,6 +28,7 @@ export const accounts = pgTable("Accounts", {
 });
 
 export const accountRelations = relations(accounts, ({ many }) => ({
+    applications: many(applications),
     sessions: many(sessions),
     tokens: many(tokens),
     projects: many(projects),
@@ -38,6 +40,7 @@ export type CreateAccountRequest = Output<typeof createAccountSchema>;
 export type UpdateAccountRequest = Output<typeof updateAccountSchema>;
 
 export type AccountEntity = InferSelectModel<typeof accounts> & {
+    applications?: Array<ApplicationEntity>;
     sessions?: Array<SessionEntity>;
     tokens?: Array<TokenEntity>;
     projects?: Array<ProjectEntity>;

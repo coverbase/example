@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { mapAccountEndpoints } from "./endpoints/account";
+import { mapApplicationEndpoints } from "./endpoints/application";
 import { mapCountryEndpoints } from "./endpoints/country";
 import { mapFileEndpoints } from "./endpoints/file";
 import { mapLanguageEndpoints } from "./endpoints/language";
@@ -23,5 +24,6 @@ mapProjectEndpoints(app);
 mapMemberEndpoints(app);
 mapRoleEndpoints(app);
 mapFileEndpoints(app);
+mapApplicationEndpoints(app);
 
 export default app;

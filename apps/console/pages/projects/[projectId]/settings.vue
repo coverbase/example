@@ -56,4 +56,8 @@ watch(project, (value) => {
         };
     }
 });
+
+useSeoMeta({
+    title: "Settings - Project - Coverbase",
+});
 </script>

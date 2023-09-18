@@ -3,11 +3,11 @@
         :routes="[
             {
                 name: 'Tokens',
-                to: '/account/tokens',
+                to: '/settings/tokens',
             },
             {
                 name: 'Create',
-                to: '/account/tokens/create',
+                to: '/settings/tokens/create',
             },
         ]"
     />
@@ -27,7 +27,7 @@
 import { CreateTokenRequest } from "@coverbase/schema";
 
 definePageMeta({
-    layout: "account",
+    layout: "settings",
     middleware: ["auth"],
 });
 
@@ -39,10 +39,10 @@ const form = ref<CreateTokenRequest>({
 async function handleCreate() {
     await createToken(form.value);
 
-    navigateTo("/account/tokens");
+    navigateTo("/settings/tokens");
 }
 
 useSeoMeta({
-    title: "New - Tokens - Account - Coverbase",
+    title: "Tokens - Settings - Coverbase",
 });
 </script>

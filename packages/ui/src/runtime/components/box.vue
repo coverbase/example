@@ -1,12 +1,11 @@
 <template>
-    <Box class="flex w-full flex-col gap-4 p-4 sm:p-6" :as="as">
+    <component class="rounded border border-slate-200 bg-white" :is="as">
         <slot />
-    </Box>
+    </component>
 </template>
 
 <script setup lang="ts">
 import type { Component } from "vue";
-import Box from "./box.vue";
 
 withDefaults(
     defineProps<{

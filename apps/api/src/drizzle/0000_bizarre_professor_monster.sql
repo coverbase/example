@@ -6,6 +6,13 @@ CREATE TABLE IF NOT EXISTS "Accounts" (
 	"Created" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "Applications" (
+	"Id" uuid NOT NULL,
+	"Name" varchar NOT NULL,
+	"Secret" varchar NOT NULL,
+	"Created" timestamp with time zone DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Countries" (
 	"Id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"Name" varchar NOT NULL,
@@ -64,6 +71,12 @@ CREATE TABLE IF NOT EXISTS "Tokens" (
 	"Created" timestamp with time zone DEFAULT now() NOT NULL,
 	"AccountId" uuid NOT NULL
 );
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "Applications" ADD CONSTRAINT "Applications_Id_Accounts_Id_fk" FOREIGN KEY ("Id") REFERENCES "Accounts"("Id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "Files" ADD CONSTRAINT "Files_ProjectId_Projects_Id_fk" FOREIGN KEY ("ProjectId") REFERENCES "Projects"("Id") ON DELETE no action ON UPDATE no action;

@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center gap-2">
         <Heading> Tokens </Heading>
 
-        <Button to="/account/tokens/create" :as="NuxtLink">
+        <Button to="/settings/tokens/create" :as="NuxtLink">
             <span class="px-2"> New Token </span>
         </Button>
     </div>
@@ -13,7 +13,7 @@
                 <TextLink
                     class="font-semibold text-base"
                     variant="secondary"
-                    :to="`/account/tokens/${item.id}`"
+                    :to="`/settings/tokens/${item.id}`"
                     :as="NuxtLink"
                 >
                     {{ item.name }}
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <Button variant="outline" :to="`/account/tokens/${item.id}`" :as="NuxtLink">
+            <Button variant="outline" :to="`/settings/tokens/${item.id}`" :as="NuxtLink">
                 <IconSettings width="20" height="20" />
             </Button>
         </div>
@@ -38,13 +38,13 @@ import { NuxtLink } from "#components";
 import { IconSettings } from "@tabler/icons-vue";
 
 definePageMeta({
-    layout: "account",
+    layout: "settings",
     middleware: ["auth"],
 });
 
 const { data: tokens } = listTokens();
 
 useSeoMeta({
-    title: "Tokens - Account - Coverbase",
+    title: "Tokens - Settings - Coverbase",
 });
 </script>

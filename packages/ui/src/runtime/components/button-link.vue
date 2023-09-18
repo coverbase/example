@@ -1,7 +1,7 @@
 <template>
     <Button
         class="!justify-start"
-        :variant="$route.path.startsWith(to) ? 'secondary' : 'text'"
+        :variant="isActive ? 'secondary' : 'text'"
         :to="to"
         :as="RouterLink"
     >
@@ -14,12 +14,28 @@
 </template>
 
 <script setup lang="ts">
-import type { Component } from "vue";
-import { RouterLink } from "vue-router";
+import { computed, type Component } from "vue";
+import { RouterLink, useRoute } from "vue-router";
 import Button from "./button.vue";
 
-defineProps<{
-    to: string;
-    icon?: Component;
-}>();
+const props = withDefaults(
+    defineProps<{
+        to: string;
+        exact?: boolean;
+        icon?: Component;
+    }>(),
+    {
+        exact: false,
+    }
+);
+
+const route = useRoute();
+
+const isActive = computed(() => {
+    if (props.exact) {
+        return route.path === props.to;
+    } else {
+        return route.path.startsWith(props.to);
+    }
+});
 </script>

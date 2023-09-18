@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "d5e20d2c-390f-466a-8be5-12a7b97184b1",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "aaf185fc-13d0-4520-a836-91b9951aa268",
+  "prevId": "d5e20d2c-390f-466a-8be5-12a7b97184b1",
   "tables": {
     "Accounts": {
       "name": "Accounts",
@@ -53,8 +53,9 @@
         "Id": {
           "name": "Id",
           "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "Name": {
           "name": "Name",
@@ -74,16 +75,22 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "AccountId": {
+          "name": "AccountId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "Applications_Id_Accounts_Id_fk": {
-          "name": "Applications_Id_Accounts_Id_fk",
+        "Applications_AccountId_Accounts_Id_fk": {
+          "name": "Applications_AccountId_Accounts_Id_fk",
           "tableFrom": "Applications",
           "tableTo": "Accounts",
           "columnsFrom": [
-            "Id"
+            "AccountId"
           ],
           "columnsTo": [
             "Id"
